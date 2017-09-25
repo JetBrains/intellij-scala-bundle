@@ -1,0 +1,39 @@
+<application>
+  <component name="RecentProjectsManager">
+    <option name="recentPaths">
+      <list>
+        <option value="$APPLICATION_HOME_DIR$/data/projects/hello-scala" />
+      </list>
+    </option>
+    <option name="openPaths">
+      <list>
+        <option value="$APPLICATION_HOME_DIR$/data/projects/hello-scala" />
+      </list>
+    </option>
+    <option name="groups">
+      <list>
+        <ProjectGroup>
+          <option name="expanded" value="true" />
+          <option name="name" value="Examples" />
+          <option name="projectPaths" value="$APPLICATION_HOME_DIR$/data/projects/hello-scala" />
+        </ProjectGroup>
+      </list>
+    </option>
+    <option name="lastPath" value="$APPLICATION_HOME_DIR$/data/projects/hello-scala" />
+    <option name="additionalInfo">
+      <map>
+        <entry key="$APPLICATION_HOME_DIR$/data/projects/hello-scala">
+          <value>
+            <RecentProjectMetaInfo>
+              <option name="build" value="IC-172.4155.36" />
+              <option name="productionCode" value="IC" />
+              <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+              <option name="projectOpenTimestamp" value="1506084855116" />
+              <option name="buildTimestamp" value="1505159211873" />
+            </RecentProjectMetaInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</application>

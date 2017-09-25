@@ -1,0 +1,35 @@
+[![official JetBrains project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JetBrains/intellij-scala)
+
+# IntelliJ Scala Bundle
+
+A proof of the concept script for creating a portable bundle with:
+
+1. [IntelliJ IDEA](https://www.jetbrains.com/idea/), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
+2. [Scala plugin](https://confluence.jetbrains.com/display/SCA/Scala+Plugin+for+IntelliJ+IDEA) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
+3. [SBT launcher](https://github.com/sbt/launcher), as a part of the Scala plugin ([downloads](https://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/)).
+4. [Scala](https://www.scala-lang.org/) binaries ([downloads](https://www.scala-lang.org/download/)).
+5. [Scala Standard Library](https://www.scala-lang.org/api/current/index.html) sources ([downloads](https://www.scala-lang.org/download/)).
+6. Example Scala project.
+7. IntelliJ IDEA settings for all the above.
+
+To create the bundle invoke:
+
+    $ sbt run
+
+The created bundle is:
+
+* *One-click.* It doesn't require installation, let alone administrative privileges. You can simply extract the archive and run the application.
+* *Pre-configured.* It doesn't require initial configuration. The default settings already include all the bundled components.
+* *Self-sufficient.* It doesn't need anything besides the OS and JDK, yet you may use external dependencies, if you want to.
+* *Self-contained.* It affects neither OS-level nor user-level settings. For example, you may have the exact version of IDEA in the system and the settings won't collide.
+* *Location-independent.* The directory can be moved to other location.
+* *Offline.* It's functional without the Internet. You can create, update, compile and run IDEA-based projects, browse Scala sources – all without an Internet connection (but you need the Internet for SBT-based projects).
+
+The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
+
+You can freely update / install IDEA plugins.
+
+It should be possible to include more example projects in the bundle.
+
+Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
