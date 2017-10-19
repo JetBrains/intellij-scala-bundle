@@ -41,7 +41,7 @@ object Main {
     val Idea = "172.4155.36"
     val IdeaWindows = "2017.2.4" // for idea.exe only
     val ScalaPlugin = "2017.2.7"
-    val Runtime = "8u152b915.11"
+    val Sdk = "8u152b915.11"
     val Scala = "2.12.3"
   }
 
@@ -53,10 +53,10 @@ object Main {
       val Resources = Component("../../src/main/resources")
     }
 
-    object Runtime {
-      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrex${Versions.Runtime}_windows_x86.tar.gz")
-      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrex${Versions.Runtime}_linux_x64.tar.gz")
-      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrex${Versions.Runtime}_osx_x64.tar.gz")
+    object Sdk {
+      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_windows_x86.tar.gz")
+      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_linux_x64.tar.gz")
+      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_osx_x64.tar.gz")
     }
 
     object Scala {
@@ -68,7 +68,7 @@ object Main {
 
     val All = Seq(
       Idea.Bundle, Idea.Windows, Idea.ScalaPlugin, Idea.Resources,
-      Runtime.Windows, Runtime.Linux, Runtime.Mac,
+      Sdk.Windows, Sdk.Linux, Sdk.Mac,
       Scala.Windows, Scala.Unix, Scala.Sources, Scala.LibrarySources
     )
   }
@@ -101,8 +101,10 @@ object Main {
           matches("lib/libpty/win/.*")
       case Idea.Windows =>
         matches("bin/idea.exe")
-      case Runtime.Windows =>
-        from("jre") & to("jre32/")
+      case Sdk.Windows =>
+        to("jre/")
+      case Sdk.Mac =>
+        from("jdk/Contents/Home/src.zip") & to("jre/src.zip")
       case Scala.Windows =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -114,8 +116,10 @@ object Main {
         from("bin/linux/") & to("bin/") |
           matches("bin/.*\\.(py|sh|png)") | matches("bin/fsnotifier") |
           matches("lib/libpty/linux/.*")
-      case Runtime.Linux =>
-        from("jre") & to("jre64/")
+      case Sdk.Linux =>
+        to("jre/")
+      case Sdk.Mac =>
+        from("jdk/Contents/Home/src.zip") & to("jre/src.zip")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -132,7 +136,7 @@ object Main {
           matches("Resources/.*") |
           matches("Info\\.plist") |
           matches("lib/libpty/macosx/.*")
-      case Runtime.Mac =>
+      case Sdk.Mac =>
         any
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
@@ -155,8 +159,16 @@ object Main {
       s"IntelliJ Scala Bundle $Version:\n\n" +
         s"* IntelliJ IDEA ${Versions.Idea}\n" +
         s"* Scala Plugin ${Versions.ScalaPlugin}\n" +
+        s"* JetBrains Runtime SDK ${Versions.Sdk}\n" +
         s"* Scala ${Versions.Scala}\n\n" +
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
+
+    private val MacPatches: Descriptor = {
+      case Idea.Resources =>
+        matches("data/config/options/jdk\\.table\\.xml") &
+          edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$\\/jre", "\\$APPLICATION_HOME_DIR\\$/jdk/Contents/Home")) | any
+      case _ => any
+    }
 
     private val Permissions: Descriptor = {
       case _ =>
@@ -171,7 +183,7 @@ object Main {
 
     val Linux: Descriptor  = ((Common | LinuxSpecific) & Patches("\n") & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
 
-    val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version.app/Contents/"))
+    val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version.app/Contents/"))
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {
