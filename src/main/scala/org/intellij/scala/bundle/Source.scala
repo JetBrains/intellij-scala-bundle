@@ -16,7 +16,7 @@ trait Source extends Iterator[Entry] with Closeable
 
 object Source {
   def apply(file: File): Source = file.getName match {
-    case name if name.endsWith(".zip") => new ZipSource(file)
+    case name if name.endsWith(".zip") | name.endsWith(".jar") => new ZipSource(file)
     case name if name.endsWith(".tar.gz") | name.endsWith(".tgz") => new TarGzSource(file)
     case _ => new DirectorySource(file)
   }

@@ -26,6 +26,7 @@ object Main {
     }
 
     packageScalaLibrarySources(repository, Components.Scala.Sources)
+    patchPlatformImplJar(repository, Components.Idea.Bundle, Components.Idea.Resources)
 
     val commands = Seq(
       () => build(repository, Components.All, Descriptors.Windows)(target / s"intellij-scala-bundle-$Version-windows.zip"),
@@ -63,13 +64,15 @@ object Main {
       val Windows = Component(s"https://downloads.lightbend.com/scala/${Versions.Scala}/scala-${Versions.Scala}.zip")
       val Unix = Component(s"https://downloads.lightbend.com/scala/${Versions.Scala}/scala-${Versions.Scala}.tgz")
       val Sources = Component(s"https://github.com/scala/scala/archive/v${Versions.Scala}.tar.gz")
-      val LibrarySources = Component("./")
     }
+
+    val Repository = Component("./")
 
     val All = Seq(
       Idea.Bundle, Idea.Windows, Idea.ScalaPlugin, Idea.Resources,
       Sdk.Windows, Sdk.Linux, Sdk.Mac,
-      Scala.Windows, Scala.Unix, Scala.Sources, Scala.LibrarySources
+      Scala.Windows, Scala.Unix, Scala.Sources,
+      Repository
     )
   }
 
@@ -80,7 +83,7 @@ object Main {
       case Idea.Bundle =>
         matches("bin/appletviewer\\.policy") |
           matches("bin/log\\.xml") |
-          matches("lib/.*") - matches("lib/libpty.*") |
+          matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
           matches("plugins/(git4idea|github|junit|IntelliLang|maven|properties|terminal)/.*") |
           matches("build.txt") |
@@ -88,7 +91,8 @@ object Main {
           matches("NOTICE.txt")
       case Idea.ScalaPlugin =>
         to("data/plugins/")
-      case Scala.LibrarySources =>
+      case Repository =>
+        matches("platform-impl.jar") & to("lib/") |
         from(s"scala-library-sources-${Versions.Scala}.zip") & to("scala/src/scala-library.zip")
       case Idea.Resources =>
         matches("data/.*")
@@ -187,13 +191,15 @@ object Main {
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {
-    info(s"Building ${output.getName}...")
+    if (!output.exists) {
+      info(s"Building ${output.getName}...")
 
-    using(Destination(output)) { destination =>
-      components.foreach { component =>
-        descriptor.lift(component).foreach { mapper =>
-          using(Source(base / component.path)) { source =>
-            source.collect(mapper).foreach(destination(_))
+      using(Destination(output)) { destination =>
+        components.foreach { component =>
+          descriptor.lift(component).foreach { mapper =>
+            using(Source(base / component.path)) { source =>
+              source.collect(mapper).foreach(destination(_))
+            }
           }
         }
       }
@@ -220,8 +226,30 @@ object Main {
       info(s"Packaging Scala sources...")
 
       using(Destination(target)) { destination =>
-        Source(base / component.path).collect(from(s"scala-${Versions.Scala}/src/library/")).foreach(destination(_))
+        using(Source(base / component.path))(_.collect(from(s"scala-${Versions.Scala}/src/library/")).foreach(destination(_)))
       }
+    }
+  }
+
+  private def patchPlatformImplJar(base: File, bundle: Component, resources: Component): Unit = {
+    val target = base / s"platform-impl.jar"
+
+    if (!target.exists) {
+      info(s"Patching IDEA platform...")
+
+      using(Destination(base)) { destination =>
+        using(Source(base / bundle.path))(_.collect(from(s"lib/platform-impl.jar") & to("platform-impl.tmp.jar")).foreach(destination(_)))
+      }
+
+      using(Destination(target)) { destination =>
+        using(Source(base / "platform-impl.tmp.jar"))(_.collect(-matches("com/intellij/ui/AppUIUtil.class")).foreach(destination(_)))
+
+        using(Source(base / resources.path))(_.collect(
+          matches("AppUIUtil.class") & to("com/intellij/ui/") |
+            matches("BundleAgreement.html") & to("com/intellij/ui/")).foreach(destination(_)))
+      }
+
+      (base / "platform-impl.tmp.jar").delete()
     }
   }
 }
