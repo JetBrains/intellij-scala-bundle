@@ -60,6 +60,20 @@ object Mapper {
       entry.copy(size = s.length, input = Some(new ByteArrayInputStream(s.getBytes)))
   }
 
+  def repack(mapper: Mapper): Mapper = {
+    case entry =>
+
+      val sourceFile = createTempFile(entry.name)
+      using(new BufferedOutputStream(new FileOutputStream(sourceFile)))(IOUtils.copy(entry.input.get, _))
+
+      val destinationFile = createTempFile(entry.name)
+      using(Destination(destinationFile))(destination => using(Source(sourceFile))(_.collect(mapper).foreach(destination(_))))
+
+      sourceFile.delete()
+
+      entry.copy(size = destinationFile.length(), input = Some(new BufferedInputStream(new FileInputStream(destinationFile))))
+  }
+
   def setMode(mode: Int): Mapper = {
     case entry => entry.copy(mode = Some(octalToDecimal(mode)))
   }

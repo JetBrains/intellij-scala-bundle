@@ -155,6 +155,13 @@ object Main {
       case _ => any
     }
 
+    private def Repack: Descriptor = {
+//      case _ =>
+//        matches(".*\\.(jar|zip)") & repack(any) |
+//          any
+      case _ => any
+    }
+
     private val IdeaPropertiesPatch: String = "\n" +
       "idea.config.path=${idea.home.path}/data/config\n\n" +
       "idea.system.path=${idea.home.path}/data/system\n\n" +
@@ -184,11 +191,11 @@ object Main {
           matches("idea.sh")) & setMode(100755) | any
     }
 
-    val Windows: Descriptor = ((Common | WindowsSpecific) & Patches("\r\n")).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
+    val Windows: Descriptor = ((Common | WindowsSpecific) & Repack & Patches("\r\n")).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
 
-    val Linux: Descriptor  = ((Common | LinuxSpecific) & Patches("\n") & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
+    val Linux: Descriptor  = ((Common | LinuxSpecific) & Repack & Patches("\n") & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
 
-    val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version.app/Contents/"))
+    val Mac: Descriptor = ((Common | MacSpecific) & Repack & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version.app/Contents/"))
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {
