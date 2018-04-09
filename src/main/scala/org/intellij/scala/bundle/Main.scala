@@ -95,7 +95,8 @@ object Main {
         matches("platform-impl.jar") & to("lib/") |
         from(s"scala-library-sources-${Versions.Scala}.zip") & to("scala/src/scala-library.zip")
       case Idea.Resources =>
-        matches("data/.*")
+        matches("data/.*") |
+          from("BundleAgreement.html") & to("README.html")
     }
 
     private val WindowsSpecific: Descriptor = {

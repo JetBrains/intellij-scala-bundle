@@ -22,6 +22,7 @@ package object bundle {
   } finally {
     a.close()
   }
+
   def download(source: URL, destination: File): Unit = {
     try {
       val input = new BufferedInputStream(source.openConnection().getInputStream)
