@@ -1,0 +1,96 @@
+Index: platform/platform-impl/src/com/intellij/ui/AppUIUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- platform/platform-impl/src/com/intellij/ui/AppUIUtil.java	(revision 6fd8c60611f97764ff7061c050513ab53fea4074)
++++ platform/platform-impl/src/com/intellij/ui/AppUIUtil.java	(date 1523040877681)
+@@ -36,6 +36,7 @@
+ import com.intellij.openapi.util.Pair;
+ import com.intellij.openapi.util.Ref;
+ import com.intellij.openapi.util.SystemInfo;
++import com.intellij.openapi.util.io.FileUtil;
+ import com.intellij.openapi.util.text.StringUtil;
+ import com.intellij.openapi.wm.ToolWindowManager;
+ import com.intellij.ui.AppIcon.MacAppIcon;
+@@ -66,9 +67,10 @@
+ import java.awt.*;
+ import java.awt.event.AdjustmentEvent;
+ import java.awt.event.AdjustmentListener;
+-import java.io.File;
+-import java.io.InputStream;
++import java.io.*;
++import java.lang.reflect.InvocationTargetException;
+ import java.net.URL;
++import java.nio.charset.StandardCharsets;
+ import java.util.*;
+ import java.util.List;
+ 
+@@ -253,13 +255,43 @@
+     return iconPath;
+   }
+ 
++  public static void showBundleNoticeIfNeeded() {
++    String lib = new File(PathUtil.getJarPathForClass(AppUIUtil.class)).getParent();
++    File bundleAgreement = new File(lib + "/../data/config/options/bundleAgreement");
++
++    if (!bundleAgreement.exists()) {
++      try (Reader reader = new InputStreamReader(new BufferedInputStream(
++        AppUIUtil.class.getResourceAsStream("BundleAgreement.html")), StandardCharsets.UTF_8)) {
++
++        String text = new String(FileUtil.adaptiveLoadText(reader));
++        SwingUtilities.invokeAndWait(() -> showEndUserAgreementText("IntelliJ Scala Bundle Agreement", text));
++
++        File optionsDirectory = bundleAgreement.getParentFile();
++
++        if (!optionsDirectory.exists() && !optionsDirectory.mkdirs()) {
++          throw new IOException("Cannot create directory: " + bundleAgreement.getAbsolutePath());
++        }
++
++        try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(bundleAgreement))) {
++          stream.write("accepted".getBytes(StandardCharsets.UTF_8));
++        }
++      }
++      catch (Exception e) {
++        Logger.getInstance(AppUIUtil.class).warn(e);
++      }
++    }
++  }
++
+   public static void showUserAgreementAndConsentsIfNeeded() {
++    showBundleNoticeIfNeeded();
++
+     if (ApplicationInfoImpl.getShadowInstance().isVendorJetBrains()) {
+       EndUserAgreement.Document agreement = EndUserAgreement.getLatestDocument();
+       if (!agreement.isAccepted()) {
+         try {
+           // todo: does not seem to request focus when shown
+-          SwingUtilities.invokeAndWait(() -> showEndUserAgreementText(agreement.getText()));
++          String title = ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement";
++          SwingUtilities.invokeAndWait(() -> showEndUserAgreementText(title, agreement.getText()));
+           EndUserAgreement.setAccepted(agreement);
+         }
+         catch (Exception e) {
+@@ -287,10 +319,11 @@
+   /**
+    * todo: update to support GDPR requirements
+    *
++   * @param title
+    * @param htmlText Updated version of Privacy Policy text if any.
+-   *                 If it's {@code null}, the standard text from bundled resources would be used.
++ *                 If it's {@code null}, the standard text from bundled resources would be used.
+    */
+-  public static void showEndUserAgreementText(@NotNull String htmlText) {
++  public static void showEndUserAgreementText(String title, @NotNull String htmlText) {
+     DialogWrapper dialog = new DialogWrapper(true) {
+       @Override
+       protected JComponent createCenterPanel() {
+@@ -361,7 +394,7 @@
+       }
+     };
+     dialog.setModal(true);
+-    dialog.setTitle(ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement");
++    dialog.setTitle(title);
+     dialog.setSize(JBUI.scale(509), JBUI.scale(395));
+     dialog.show();
+   }

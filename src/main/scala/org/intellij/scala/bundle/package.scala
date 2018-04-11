@@ -22,6 +22,7 @@ package object bundle {
   } finally {
     a.close()
   }
+
   def download(source: URL, destination: File): Unit = {
     try {
       val input = new BufferedInputStream(source.openConnection().getInputStream)
@@ -39,5 +40,12 @@ package object bundle {
 
   implicit class FileExt(val file: File) extends AnyVal {
     def /(path: String): File = new File(file, path)
+  }
+
+  def createTempFile(name: String): File = {
+    val (prefix, suffix) = name.splitAt(name.length - 4)
+    val file = File.createTempFile(prefix, suffix)
+    file.deleteOnExit()
+    file
   }
 }

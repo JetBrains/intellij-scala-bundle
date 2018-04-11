@@ -8,10 +8,12 @@ A proof of the concept script for creating a portable bundle with:
 1. [IntelliJ IDEA](https://www.jetbrains.com/idea/), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
 2. [Scala plugin](https://confluence.jetbrains.com/display/SCA/Scala+Plugin+for+IntelliJ+IDEA) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
 3. [SBT launcher](https://github.com/sbt/launcher), as a part of the Scala plugin ([downloads](https://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/)).
-4. [Scala](https://www.scala-lang.org/) binaries ([downloads](https://www.scala-lang.org/download/)).
-5. [Scala Standard Library](https://www.scala-lang.org/api/current/index.html) sources ([downloads](https://www.scala-lang.org/download/)).
-6. Example Scala project.
-7. IntelliJ IDEA settings for all the above.
+4. [JetBrains Runtime SDK](https://github.com/JetBrains/jdk8u), ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
+5. JetBrains Runtime SDK sources.
+6. [Scala](https://www.scala-lang.org/) binaries ([downloads](https://www.scala-lang.org/download/)).
+7. [Scala Standard Library](https://www.scala-lang.org/api/current/index.html) sources ([downloads](https://www.scala-lang.org/download/)).
+8. Example Scala project.
+9. IntelliJ IDEA settings for all the above.
 
 To create the bundle invoke:
 
@@ -21,10 +23,10 @@ The created bundle is:
 
 * *One-click.* It doesn't require installation, let alone administrative privileges. You can simply extract the archive and run the application.
 * *Pre-configured.* It doesn't require initial configuration. The default settings already include all the bundled components.
-* *Self-sufficient.* It doesn't need anything besides the OS and JDK, yet you may use external dependencies, if you want to.
+* *Self-sufficient.* It doesn't need anything besides the OS, yet you may use external dependencies, if you want to.
 * *Self-contained.* It affects neither OS-level nor user-level settings. For example, you may have the exact version of IDEA in the system and the settings won't collide.
 * *Location-independent.* The directory can be moved to other location.
-* *Offline.* It's functional without the Internet. You can create, update, compile and run IDEA-based projects, browse Scala sources – all without an Internet connection (but you need the Internet for SBT-based projects).
+* *Offline.* It's functional without the Internet. You can create, update, compile and run IDEA-based projects, browse Scala- and Java library sources – all without an Internet connection (but you need the Internet for SBT-based projects).
 
 The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
 

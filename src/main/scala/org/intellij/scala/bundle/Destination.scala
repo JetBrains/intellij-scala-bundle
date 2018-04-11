@@ -19,8 +19,9 @@ object Destination {
   private val CompressionLevel = 9
 
   def apply(file: File): Destination = file.getName match {
-    case name if name.endsWith(".zip") => new ZipDestination(file)
+    case name if name.endsWith(".zip") | name.endsWith(".jar") => new ZipDestination(file)
     case name if name.endsWith(".tar") | name.endsWith(".tar.gz") | name.endsWith(".tgz") => new TarDestination(file, compress = !name.endsWith(".tar"))
+    case _ => new DirectoryDestination(file)
   }
 
   private class DirectoryDestination(directory: File) extends Destination {
