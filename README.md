@@ -8,8 +8,8 @@ A proof of the concept script for creating a portable bundle with:
 1. [IntelliJ IDEA](https://www.jetbrains.com/idea/), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
 2. [Scala plugin](https://confluence.jetbrains.com/display/SCA/Scala+Plugin+for+IntelliJ+IDEA) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
 3. [SBT launcher](https://github.com/sbt/launcher), as a part of the Scala plugin ([downloads](https://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/)).
-4. [JetBrains Runtime SDK](https://github.com/JetBrains/jdk8u), ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
-5. JetBrains Runtime SDK sources.
+4. [JetBrains SDK](https://github.com/JetBrains/jdk8u), ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
+5. JetBrains SDK sources.
 6. [Scala](https://www.scala-lang.org/) binaries ([downloads](https://www.scala-lang.org/download/)).
 7. [Scala Standard Library](https://www.scala-lang.org/api/current/index.html) sources ([downloads](https://www.scala-lang.org/download/)).
 8. Example Scala project.

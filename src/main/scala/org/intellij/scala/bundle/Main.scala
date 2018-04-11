@@ -171,7 +171,7 @@ object Main {
       s"IntelliJ Scala Bundle $Version:\n\n" +
         s"* IntelliJ IDEA ${Versions.Idea}\n" +
         s"* Scala Plugin ${Versions.ScalaPlugin}\n" +
-        s"* JetBrains Runtime SDK ${Versions.Sdk}\n" +
+        s"* JetBrains SDK ${Versions.Sdk}\n" +
         s"* Scala ${Versions.Scala}\n\n" +
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
 
