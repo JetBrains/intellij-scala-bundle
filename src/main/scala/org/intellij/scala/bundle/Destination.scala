@@ -16,12 +16,13 @@ trait Destination extends Closeable {
 }
 
 object Destination {
-  private val CompressionLevel = 9
-
-  def apply(file: File): Destination = file.getName match {
-    case name if name.endsWith(".zip") | name.endsWith(".jar") => new ZipDestination(file)
-    case name if name.endsWith(".tar") | name.endsWith(".tar.gz") | name.endsWith(".tgz") => new TarDestination(file, compress = !name.endsWith(".tar"))
-    case _ => new DirectoryDestination(file)
+  def apply(file: File, compressionLevel: Int = 9): Destination = file.getName match {
+    case name if name.endsWith(".zip") | name.endsWith(".jar") =>
+      new ZipDestination(file, compressionLevel)
+    case name if name.endsWith(".tar") | name.endsWith(".tar.gz") | name.endsWith(".tgz") =>
+      new TarDestination(file, compress = !name.endsWith(".tar"), compressionLevel)
+    case _ =>
+      new DirectoryDestination(file)
   }
 
   private class DirectoryDestination(directory: File) extends Destination {
@@ -44,9 +45,9 @@ object Destination {
     override def close(): Unit = {}
   }
 
-  private class ZipDestination(file: File) extends Destination {
+  private class ZipDestination(file: File, compressionLevel: Int) extends Destination {
     private val output = new ZipArchiveOutputStream(new BufferedOutputStream(new FileOutputStream(file)))
-    output.setLevel(CompressionLevel)
+    output.setLevel(compressionLevel)
 
     def apply(entry: Entry): Unit = {
       if (entry.isDirectory) return
@@ -65,10 +66,10 @@ object Destination {
     }
   }
 
-  private class TarDestination(file: File, compress: Boolean) extends Destination {
+  private class TarDestination(file: File, compress: Boolean, compressionLevel: Int) extends Destination {
     private val output = {
       val parameters = new GzipParameters()
-      parameters.setCompressionLevel(CompressionLevel)
+      parameters.setCompressionLevel(compressionLevel)
 
       val sink = new BufferedOutputStream(new FileOutputStream(file))
       val stream = new TarArchiveOutputStream(if (compress) new GzipCompressorOutputStream(sink) else sink)

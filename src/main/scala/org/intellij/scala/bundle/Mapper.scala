@@ -60,18 +60,18 @@ object Mapper {
       entry.copy(size = s.length, input = Some(new ByteArrayInputStream(s.getBytes)))
   }
 
-  def repack(name: String, mapper: Mapper): Mapper = {
-    repack(name)((source, destination) => source.collect(mapper).foreach(destination(_)))
+  def repack(name: String, compressionLevel: Int, mapper: Mapper): Mapper = {
+    repack(name, compressionLevel)((source, destination) => source.collect(mapper).foreach(destination(_)))
   }
 
-  def repack(name: String)(transfer: (Source, Destination) => Unit): Mapper = {
+  def repack(name: String, compressionLevel: Int)(transfer: (Source, Destination) => Unit): Mapper = {
     case entry =>
 
       val sourceFile = File.createTempFile("repack", entry.name.replaceAll("\\\\|/", "-"))
       using(new BufferedOutputStream(new FileOutputStream(sourceFile)))(IOUtils.copy(entry.input.get, _))
 
       val destinationFile = File.createTempFile("repack", name.replaceAll("\\\\|/", "-"))
-      using(Destination(destinationFile))(destination => using(Source(sourceFile))(transfer(_, destination)))
+      using(Destination(destinationFile, compressionLevel))(destination => using(Source(sourceFile))(transfer(_, destination)))
 
       sourceFile.delete()
       destinationFile.deleteOnExit()

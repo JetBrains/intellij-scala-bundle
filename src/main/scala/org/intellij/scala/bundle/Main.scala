@@ -80,7 +80,7 @@ object Main {
       case Idea.Bundle =>
         matches("bin/appletviewer\\.policy") |
           matches("bin/log\\.xml") |
-          matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar") { (source, destination) =>
+          matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar", 0) { (source, destination) =>
             source.collect(-matches("com/intellij/ui/AppUIUtil.class")).foreach(destination(_))
             using(Source(file("./src/main/resources")))(_.collect(
               matches("AppUIUtil.class") & to("com/intellij/ui/") |
@@ -95,7 +95,7 @@ object Main {
       case Idea.ScalaPlugin =>
         to("data/plugins/")
       case Repository =>
-        matches(Scala.Sources.path) & repack("scala-library.zip", from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
+        matches(Scala.Sources.path) & repack("scala-library.zip", 9, from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
       case Idea.Resources =>
         matches("data/.*") |
           from("BundleAgreement.html") & to("README.html")
