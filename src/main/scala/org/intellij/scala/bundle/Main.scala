@@ -25,7 +25,6 @@ object Main {
       downloadComponent(repository, component)
     }
 
-    packageScalaLibrarySources(repository, Components.Scala.Sources)
     patchPlatformImplJar(repository, Components.Idea.Bundle, Components.Idea.Resources)
 
     val commands = Seq(
@@ -93,7 +92,7 @@ object Main {
         to("data/plugins/")
       case Repository =>
         matches("platform-impl.jar") & to("lib/") |
-        from(s"scala-library-sources-${Versions.Scala}.zip") & to("scala/src/scala-library.zip")
+        matches(Scala.Sources.path) & repack(from(s"scala-${Versions.Scala}/src/library/"), Some("scala-library.zip")) & to("scala/src/")
       case Idea.Resources =>
         matches("data/.*") |
           from("BundleAgreement.html") & to("README.html")
@@ -199,15 +198,13 @@ object Main {
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {
-    if (!output.exists) {
-      info(s"Building ${output.getName}...")
+    info(s"Building ${output.getName}...")
 
-      using(Destination(output)) { destination =>
-        components.foreach { component =>
-          descriptor.lift(component).foreach { mapper =>
-            using(Source(base / component.path)) { source =>
-              source.collect(mapper).foreach(destination(_))
-            }
+    using(Destination(output)) { destination =>
+      components.foreach { component =>
+        descriptor.lift(component).foreach { mapper =>
+          using(Source(base / component.path)) { source =>
+            source.collect(mapper).foreach(destination(_))
           }
         }
       }
@@ -223,18 +220,6 @@ object Main {
       if (!destination.exists) {
         error(s"Error downloading ${component.location}")
         sys.exit(-1)
-      }
-    }
-  }
-
-  private def packageScalaLibrarySources(base: File, component: Component): Unit = {
-    val target = base / s"scala-library-sources-${Versions.Scala}.zip"
-
-    if (!target.exists) {
-      info(s"Packaging Scala sources...")
-
-      using(Destination(target)) { destination =>
-        using(Source(base / component.path))(_.collect(from(s"scala-${Versions.Scala}/src/library/")).foreach(destination(_)))
       }
     }
   }

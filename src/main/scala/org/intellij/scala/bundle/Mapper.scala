@@ -60,18 +60,22 @@ object Mapper {
       entry.copy(size = s.length, input = Some(new ByteArrayInputStream(s.getBytes)))
   }
 
-  def repack(mapper: Mapper): Mapper = {
+  def repack(mapper: Mapper, name: Option[String] = None): Mapper = {
     case entry =>
 
-      val sourceFile = createTempFile(entry.name)
+      val sourceFile = File.createTempFile("repack", entry.name)
       using(new BufferedOutputStream(new FileOutputStream(sourceFile)))(IOUtils.copy(entry.input.get, _))
 
-      val destinationFile = createTempFile(entry.name)
+      val destinationFile = File.createTempFile("repack", name.getOrElse(entry.name))
       using(Destination(destinationFile))(destination => using(Source(sourceFile))(_.collect(mapper).foreach(destination(_))))
 
       sourceFile.delete()
+      destinationFile.deleteOnExit()
 
-      entry.copy(size = destinationFile.length(), input = Some(new BufferedInputStream(new FileInputStream(destinationFile))))
+      entry.copy(
+        name = name.getOrElse(entry.name),
+        size = destinationFile.length(),
+        input = Some(new BufferedInputStream(new FileInputStream(destinationFile))))
   }
 
   def setMode(mode: Int): Mapper = {
