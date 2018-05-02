@@ -25,8 +25,6 @@ object Main {
       downloadComponent(repository, component)
     }
 
-    patchPlatformImplJar(repository, Components.Idea.Bundle, Components.Idea.Resources)
-
     val commands = Seq(
       () => build(repository, Components.All, Descriptors.Windows)(target / s"intellij-scala-bundle-$Version-windows.zip"),
       () => build(repository, Components.All, Descriptors.Linux)(target / s"intellij-scala-bundle-$Version-linux.tar.gz"),
@@ -82,6 +80,12 @@ object Main {
       case Idea.Bundle =>
         matches("bin/appletviewer\\.policy") |
           matches("bin/log\\.xml") |
+          matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar") { (source, destination) =>
+            source.collect(-matches("com/intellij/ui/AppUIUtil.class")).foreach(destination(_))
+            using(Source(file("./src/main/resources")))(_.collect(
+              matches("AppUIUtil.class") & to("com/intellij/ui/") |
+                matches("BundleAgreement.html") & to("com/intellij/ui/")).foreach(destination(_)))
+          } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
           matches("plugins/(git4idea|github|junit|IntelliLang|maven|properties|terminal)/.*") |
@@ -91,8 +95,7 @@ object Main {
       case Idea.ScalaPlugin =>
         to("data/plugins/")
       case Repository =>
-        matches("platform-impl.jar") & to("lib/") |
-        matches(Scala.Sources.path) & repack(from(s"scala-${Versions.Scala}/src/library/"), Some("scala-library.zip")) & to("scala/src/")
+        matches(Scala.Sources.path) & repack("scala-library.zip", from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
       case Idea.Resources =>
         matches("data/.*") |
           from("BundleAgreement.html") & to("README.html")
@@ -221,28 +224,6 @@ object Main {
         error(s"Error downloading ${component.location}")
         sys.exit(-1)
       }
-    }
-  }
-
-  private def patchPlatformImplJar(base: File, bundle: Component, resources: Component): Unit = {
-    val target = base / s"platform-impl.jar"
-
-    if (!target.exists) {
-      info(s"Patching IDEA platform...")
-
-      using(Destination(base)) { destination =>
-        using(Source(base / bundle.path))(_.collect(from(s"lib/platform-impl.jar") & to("platform-impl.tmp.jar")).foreach(destination(_)))
-      }
-
-      using(Destination(target)) { destination =>
-        using(Source(base / "platform-impl.tmp.jar"))(_.collect(-matches("com/intellij/ui/AppUIUtil.class")).foreach(destination(_)))
-
-        using(Source(base / resources.path))(_.collect(
-          matches("AppUIUtil.class") & to("com/intellij/ui/") |
-            matches("BundleAgreement.html") & to("com/intellij/ui/")).foreach(destination(_)))
-      }
-
-      (base / "platform-impl.tmp.jar").delete()
     }
   }
 }
