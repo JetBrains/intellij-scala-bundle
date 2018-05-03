@@ -1,0 +1,22 @@
+Index: platform/platform-impl/src/com/intellij/idea/StartupUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(revision 6fd8c60611f97764ff7061c050513ab53fea4074)
++++ platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(date 1525377507207)
+@@ -107,6 +107,14 @@
+       e.printStackTrace();
+     }
+ 
++    if (SystemInfo.isMac && PathManager.getSystemPath().contains("/AppTranslocation/")) {
++      String message = "Please use Finder to move the application to another location before launching.\n\n" +
++                       "Since v10.12 macOS launches downloaded applications as read-only.\n" +
++                       "Moving application to any other location lifts that restriction.";
++      Main.showMessage("App Translocation detected", message, false);
++      System.exit(Main.DIR_CHECK_FAILED);
++    }
++
+     // note: uses config folder!
+     if (!checkSystemFolders()) {
+       System.exit(Main.DIR_CHECK_FAILED);
