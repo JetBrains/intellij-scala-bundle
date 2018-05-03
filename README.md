@@ -30,7 +30,7 @@ The created bundle is:
 
 In comparison (macOS):
 
-|Data        |Installer| Bundle  |Diff.|
+|Data        |Installer| Bundle  | VS  |
 |:-----------|:-------:|:-------:|:---:|
 |Internet use|869,2 MB | 343,9 MB|1/2  |
 |Disk use    |1621,5 MB| 640,8 MB|1/2  |
