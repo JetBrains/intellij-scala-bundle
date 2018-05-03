@@ -28,6 +28,15 @@ The created bundle is:
 * *Location-independent.* The directory can be moved to other location.
 * *Offline.* It's functional without the Internet. You can create, update, compile and run IDEA-based projects, browse Scala- and Java library sources – all without an Internet connection (but you need the Internet for SBT-based projects).
 
+In comparison (macOS):
+
+|Measure |Installer| Bundle  |Diff.|
+|:-------|:-------:|:-------:|:---:|
+|Internet|869,2 MB | 343,9 MB|1/2  |
+|Disk    |1621,5 MB| 640,8 MB|1/2  |
+|Click   |~100     | ~1      |1/100|
+|Time    |>15 min. | <1 min. |1/50 |
+
 The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
 
 You can freely update / install IDEA plugins.
