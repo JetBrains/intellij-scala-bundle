@@ -30,12 +30,12 @@ The created bundle is:
 
 In comparison (macOS):
 
-|Measure |Installer| Bundle  |Diff.|
-|:-------|:-------:|:-------:|:---:|
-|Internet|869,2 MB | 343,9 MB|1/2  |
-|Disk    |1621,5 MB| 640,8 MB|1/2  |
-|Click   |~100     | ~1      |1/100|
-|Time    |>15 min. | <1 min. |1/50 |
+|Data        |Installer| Bundle  |Diff.|
+|:-----------|:-------:|:-------:|:---:|
+|Internet use|869,2 MB | 343,9 MB|1/2  |
+|Disk use    |1621,5 MB| 640,8 MB|1/2  |
+|Clicks      |~100     | ~1      |1/100|
+|Time        |>15 min. | <1 min. |1/50 |
 
 The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
 
