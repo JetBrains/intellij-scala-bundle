@@ -34,4 +34,6 @@ You can freely update / install IDEA plugins.
 
 It should be possible to include more example projects in the bundle.
 
+Every distributor of the bundle must display text of the [bundle agreement](src/main/resources/BundleAgreement.html) (or link to that text) on the download page.
+
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
