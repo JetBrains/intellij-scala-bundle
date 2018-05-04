@@ -26,12 +26,12 @@ The bundle is:
 
 In comparison (macOS):
 
-|Data        |Installers| Bundle  | VS  |
-|:-----------|:--------:|:-------:|:---:|
-|Internet use|869,2 MB  | 343,9 MB|1/2  |
-|Disk use    |1621,5 MB | 640,8 MB|1/3  |
-|Time        |>15 min.  | <1 min. |1/50 |
-|Clicks      |~100      | ~1      |1/100|
+|            |Installer| Bundle  | VS  |
+|:-----------|:-------:|:-------:|:---:|
+|Internet use|869,2 MB | 343,9 MB|1/2  |
+|Disk use    |1621,5 MB| 640,8 MB|1/3  |
+|Time        |>15 min. | <1 min. |1/50 |
+|Clicks      |~100     | ~1      |1/100|
 
 ## Building
 
