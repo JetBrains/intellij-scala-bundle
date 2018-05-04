@@ -36,18 +36,18 @@ object Main {
   }
 
   private object Versions {
-    val Idea = "181.4203.550"
-    val IdeaWindows = "2018.1" // for idea.exe only
-    val ScalaPlugin = "2018.1.8"
-    val Sdk = "8u152b1136.20"
-    val Scala = "2.12.5"
+    val Idea = "181.4668.68"
+    val IdeaWindows = "2018.1.2" // for idea.exe only
+    val ScalaPlugin = "2018.1.9"
+    val Sdk = "8u152b1136.29"
+    val Scala = "2.12.6"
   }
 
   private object Components {
     object Idea {
       val Bundle = Component(s"https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/${Versions.Idea}/ideaIC-${Versions.Idea}.zip")
       val Windows = Component(s"https://download.jetbrains.com/idea/ideaIC-${Versions.IdeaWindows}.win.zip")
-      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/44474/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
+      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/45268/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
       val Resources = Component("../../src/main/resources")
     }
 
