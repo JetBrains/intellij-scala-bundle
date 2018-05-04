@@ -33,7 +33,15 @@ In comparison (macOS):
 |Time        |>15 min. | <1 min. |1/50 |
 |Clicks      |~100     | ~1      |1/100|
 
-## Building
+## Download
+
+* [intellij-scala-bundle-2018-05-04-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-windows.zip)
+* [intellij-scala-bundle-2018-05-04-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-linux.tar.gz)
+* [intellij-scala-bundle-2018-05-04-osx.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-osx.tar.gz)
+
+By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
+
+## Build
 
 To create the bundle, invoke:
 
