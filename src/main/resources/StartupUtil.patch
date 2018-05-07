@@ -4,8 +4,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 --- platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(revision 6fd8c60611f97764ff7061c050513ab53fea4074)
-+++ platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(date 1525377507207)
-@@ -107,6 +107,14 @@
++++ platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(date 1525694694411)
+@@ -107,6 +107,22 @@
        e.printStackTrace();
      }
  
@@ -14,6 +14,14 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 +                       "Since v10.12 macOS launches downloaded applications as read-only.\n" +
 +                       "Moving application to any other location lifts that restriction.";
 +      Main.showMessage("App Translocation detected", message, false);
++      System.exit(Main.DIR_CHECK_FAILED);
++    }
++
++    if (SystemInfo.isMac && !new File(PathManager.getSystemPath()).canWrite()) {
++      String message = "Please copy the application to your system before launching.\n\n" +
++                       "The application needs to write data, while DMG images are read-only.\n" +
++                       "Copying the program to Applications or to Desktop lifts the restriction.";
++      Main.showMessage("Read-only filesystem detected", message, false);
 +      System.exit(Main.DIR_CHECK_FAILED);
 +    }
 +
