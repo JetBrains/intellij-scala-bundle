@@ -55,4 +55,6 @@ It should be possible to include more example projects in the bundle.
 
 Distributors of the bundle must display the text of [bundle agreement](src/main/resources/BundleAgreement.html) (or link to that text) on download page.
 
+Because macOS signs application as a whole (not just executable files, as in Windows), it's recommended to distribute the content of `...-osx.tar.gz` file in a [signed DMG image](https://developer.apple.com/library/content/technotes/tn2206/), to avoid the ["unidentified developer"](https://support.apple.com/kb/ph25088) message (besides, this helps to avoid ["App Translocation"](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17)).
+
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
