@@ -46,7 +46,7 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
 1. After downloaded the bundle, extract the archive.
 2. Move the extracted directory to a location where you keep your projects (e.g., Documents/Projects)
 
-- For Mac Users:
+> For Mac Users:
  This bundle is currently not registered as an identified developer with the Mac Store.
   To use the bundle, you must override the **Security & Privacy** settings. 
  
@@ -54,20 +54,20 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
  
   `" ... can't be opened because it is from an unidentified developer" `
  
- then go to **Security & Privacy** settings on your computer under **System Preferences** and choose to "Open Anyways" to allow it to run "From unidentified developer".
+Go to **Security & Privacy** settings on your computer under **System Preferences** and choose to "Open Anyways" to allow it to run "From unidentified developer".
  
  
- Alternatively, to override your security settings and open the app anyway:
+> Alternatively, to override your security settings and open the app anyway:
  
  1. In the Finder, locate the app you want to open.
  (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
- 2. Press the Control key, then click the app icon.
- 3. Choose Open from the shortcut menu.
- 4. Click Open.
+ 2. Press the **Control** key, then click the app icon.
+ 3. Choose **Open** from the shortcut menu.
+ 4. Click **Open**.
  
  The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
  
- If you receive this message:
+ > If you receive this message:
   
    `" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there." `
   
