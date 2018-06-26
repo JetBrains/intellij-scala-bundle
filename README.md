@@ -50,7 +50,7 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
  This bundle is currently not registered as an identified developer with the Mac Store.
   To use the bundle, you must override the **Security & Privacy** settings. 
  
- If you receive this message:
+ #### If you receive this message:
  
   `" ... can't be opened because it is from an unidentified developer" `
  
@@ -67,11 +67,12 @@ Go to **Security & Privacy** settings on your computer under **System Preference
  
  The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
  
- > If you receive this message:
+ #### If you receive this message:
   
    `" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there." `
   
-  Simply move the bundle to a different directory. To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+  Simply move the bundle to a different directory.
+  To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
   
   
 
