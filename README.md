@@ -41,6 +41,7 @@ In comparison (macOS):
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
 
+
 ## Install the Bundle
 
 1. After downloaded the bundle, extract the archive.
@@ -52,28 +53,28 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
  
  #### If you receive this message:
  
-  `" ... can't be opened because it is from an unidentified developer" `
+ > " ... can't be opened because it is from an unidentified developer" 
  
-> i. Go to **Security & Privacy** settings on your computer under **System Preferences**
-> ii. Choose to **Open Anyways** to allow it to run **From unidentified developer**
+- Go to **Security & Privacy** settings on your computer under **System Preferences**
+- Choose to **Open Anyways** to allow it to run **From unidentified developer**
  
  
-Alternatively, to override your security settings and open the app anyway:
+**Alternatively**, to override your security settings and open the app anyway:
  
-> i. In the Finder, locate the app you want to open. 
+- In the Finder, locate the app you want to open. 
     (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
-> ii. Press the **Control** key, then click the app icon.
-> iii. Choose **Open** from the shortcut menu.
-> iv. Click **Open**.
+- Press the **Control** key, then click the app icon.
+- Choose **Open** from the shortcut menu.
+- Click **Open**.
  
  The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
  
  #### If you receive this message:
   
-   `" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there." `
+   >" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
   
-> Simply move the bundle to a different directory.
-> To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+- Simply move the bundle to a different directory.
+- To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
   
   
 
