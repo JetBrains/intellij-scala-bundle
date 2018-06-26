@@ -54,16 +54,17 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
  
   `" ... can't be opened because it is from an unidentified developer" `
  
-Go to **Security & Privacy** settings on your computer under **System Preferences** and choose to "Open Anyways" to allow it to run "From unidentified developer".
+> i. Go to **Security & Privacy** settings on your computer under **System Preferences**
+> ii. Choose to **Open Anyways** to allow it to run **From unidentified developer**
  
  
-> Alternatively, to override your security settings and open the app anyway:
+Alternatively, to override your security settings and open the app anyway:
  
- 1. In the Finder, locate the app you want to open.
- (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
- 2. Press the **Control** key, then click the app icon.
- 3. Choose **Open** from the shortcut menu.
- 4. Click **Open**.
+> i. In the Finder, locate the app you want to open. 
+    (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
+> ii. Press the **Control** key, then click the app icon.
+> iii. Choose **Open** from the shortcut menu.
+> iv. Click **Open**.
  
  The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
  
@@ -71,8 +72,8 @@ Go to **Security & Privacy** settings on your computer under **System Preference
   
    `" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there." `
   
-  Simply move the bundle to a different directory.
-  To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+> Simply move the bundle to a different directory.
+> To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
   
   
 
