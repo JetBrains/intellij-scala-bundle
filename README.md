@@ -91,7 +91,7 @@ Please note that this bundle is not supposed to replace the usual way people dow
 
 ## Troubleshooting
 
-#### Unidentified Developer Message
+ ### Unidentified Developer Message
  
 - Go to **Security & Privacy** settings on your computer under **System Preferences**
 - Choose to **Open Anyways** to allow it to run **From unidentified developer**
@@ -107,15 +107,14 @@ Please note that this bundle is not supposed to replace the usual way people dow
  
  The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
  
- #### App Translocation
+ ### App Translocation
    
 - Simply move the bundle to a different directory.
 - To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
   
- #### Heap Allocation
+ ### Heap Allocation
  
  It is very likely to see this problem when you're using Windows. Simply increase abt heap size in IntelliJ by following the steps below:
  
- "Default preference" -> "Build, Execute, Deployment" -> "Build process heap size"
- 
+ `IntelliJ IDEA` -> `Preference` -> `Build, Execute, Deployment` -> `Build Tools` -> `sbt` -> `JVM` -> `Maximum heap size to 800 MB`
  
