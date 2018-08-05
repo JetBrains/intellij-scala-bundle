@@ -54,29 +54,18 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
  #### If you receive this message:
  
  > " ... can't be opened because it is from an unidentified developer" 
- 
-- Go to **Security & Privacy** settings on your computer under **System Preferences**
-- Choose to **Open Anyways** to allow it to run **From unidentified developer**
- 
- 
-**Alternatively**, to override your security settings and open the app anyway:
- 
-- In the Finder, locate the app you want to open. 
-    (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
-- Press the **Control** key, then click the app icon.
-- Choose **Open** from the shortcut menu.
-- Click **Open**.
- 
- The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
+
+Go to this [section](#unidentified-developer-message])
  
  #### If you receive this message:
   
    >" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
   
-- Simply move the bundle to a different directory.
-- To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
-  
-  
+ Go to this [section](#app-translocation])
+ 
+ #### If you got an error about not being able to allocate enough heap
+ 
+ Go to this [section](#heap-allocation)
 
 ## Build
 
@@ -95,3 +84,34 @@ Distributors of the bundle must display the text of [bundle agreement](src/main/
 Because macOS signs application as a whole (not just executable files, as in Windows), it's recommended to distribute the content of `...-osx.tar.gz` file in a [signed DMG image](https://developer.apple.com/library/content/technotes/tn2206/), to avoid the ["unidentified developer"](https://support.apple.com/kb/ph25088) message (besides, this helps to avoid ["App Translocation"](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17)).
 
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
+
+## Troubleshooting
+
+#### Unidentified Developer Message
+ 
+- Go to **Security & Privacy** settings on your computer under **System Preferences**
+- Choose to **Open Anyways** to allow it to run **From unidentified developer**
+ 
+ 
+**Alternatively**, to override your security settings and open the app anyway:
+ 
+- In the Finder, locate the app you want to open. 
+    (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
+- Press the **Control** key, then click the app icon.
+- Choose **Open** from the shortcut menu.
+- Click **Open**.
+ 
+ The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
+ 
+ #### App Translocation
+   
+- Simply move the bundle to a different directory.
+- To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+  
+ #### Heap Allocation
+ 
+ It is very likely to see this problem when you're using Windows. Simply increase abt heap size in IntelliJ by following the steps below:
+ 
+ "Default preference" -> "Build, Execute, Deployment" -> "Build process heap size"
+ 
+ 
