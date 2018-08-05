@@ -59,13 +59,13 @@ Please go [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
  
  > " ... can't be opened because it is from an unidentified developer" 
 
-Go to this [section](#unidentified-developer-message])
+Go to this [section](#unidentified-developer-message)
  
  #### If you receive this message:
   
    >" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
   
- Go to this [section](#app-translocation])
+ Go to this [section](#app-translocation)
  
  #### If you got an error about not being able to allocate enough heap
  
