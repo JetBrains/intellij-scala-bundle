@@ -41,42 +41,35 @@ In comparison (macOS):
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
 
+## Install Git
+
+To use git, it needs to be separately installed. Please go [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for specific instructions.
+
 
 ## Install the Bundle
 
 1. After downloaded the bundle, extract the archive.
 2. Move the extracted directory to a location where you keep your projects (e.g., Documents/Projects)
 
-> For Mac Users:
+For Mac Users:
  This bundle is currently not registered as an identified developer with the Mac Store.
   To use the bundle, you must override the **Security & Privacy** settings. 
  
- #### If you receive this message:
+#### If you receive this message:
  
  > " ... can't be opened because it is from an unidentified developer" 
+
+Go to this [section](#unidentified-developer-message)
  
-- Go to **Security & Privacy** settings on your computer under **System Preferences**
-- Choose to **Open Anyways** to allow it to run **From unidentified developer**
- 
- 
-**Alternatively**, to override your security settings and open the app anyway:
- 
-- In the Finder, locate the app you want to open. 
-    (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
-- Press the **Control** key, then click the app icon.
-- Choose **Open** from the shortcut menu.
-- Click **Open**.
- 
- The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
- 
- #### If you receive this message:
+#### If you receive this message:
   
-   >" The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
+> " The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
   
-- Simply move the bundle to a different directory.
-- To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
-  
-  
+ Go to this [section](#app-translocation)
+ 
+#### If you got an error about not being able to allocate enough heap
+ 
+ Go to this [section](#heap-allocation)
 
 ## Build
 
@@ -95,3 +88,32 @@ Distributors of the bundle must display the text of [bundle agreement](src/main/
 Because macOS signs application as a whole (not just executable files, as in Windows), it's recommended to distribute the content of `...-osx.tar.gz` file in a [signed DMG image](https://developer.apple.com/library/content/technotes/tn2206/), to avoid the ["unidentified developer"](https://support.apple.com/kb/ph25088) message (besides, this helps to avoid ["App Translocation"](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17)).
 
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
+
+## Troubleshooting
+
+### Unidentified Developer Message
+ 
+- Go to **Security & Privacy** settings on your computer under **System Preferences**
+- Choose to **Open Anyways** to allow it to run **From unidentified developer**
+ 
+ 
+**Alternatively**, to override your security settings and open the app anyway:
+ 
+- In the Finder, locate the app you want to open. 
+    (Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.)
+- Press the **Control** key, then click the app icon.
+- Choose **Open** from the shortcut menu.
+- Click **Open**.
+ 
+The app is saved as an exception to your security settings, and you will be able to open it in the future by double-clicking it, just like any registered app.
+ 
+### App Translocation
+   
+- Simply move the bundle to a different directory.
+- To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+  
+### Heap Allocation
+ 
+It is very likely to see this problem when you're using Windows. Simply increase sbt heap size in IntelliJ by following the steps below:
+ 
+`IntelliJ IDEA` -> `Preference` -> `Build, Execute, Deployment` -> `Build Tools` -> `sbt` -> `JVM` -> `Maximum heap size to 800 MB`
