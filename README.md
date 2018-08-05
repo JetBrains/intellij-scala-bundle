@@ -41,6 +41,10 @@ In comparison (macOS):
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
 
+## Install the Git
+
+Please go [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for specific instructions.
+
 
 ## Install the Bundle
 
