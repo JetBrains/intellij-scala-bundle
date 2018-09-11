@@ -1,11 +1,6 @@
-Index: platform/platform-impl/src/com/intellij/idea/StartupUtil.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(revision 6fd8c60611f97764ff7061c050513ab53fea4074)
-+++ platform/platform-impl/src/com/intellij/idea/StartupUtil.java	(date 1525694694411)
-@@ -107,6 +107,22 @@
+--- StartupUtil.java
++++ StartupUtil.java
+@@ -114,6 +114,22 @@
        e.printStackTrace();
      }
  

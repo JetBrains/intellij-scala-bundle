@@ -1,20 +1,15 @@
-Index: platform/platform-impl/src/com/intellij/ui/AppUIUtil.java
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- platform/platform-impl/src/com/intellij/ui/AppUIUtil.java	(revision 6fd8c60611f97764ff7061c050513ab53fea4074)
-+++ platform/platform-impl/src/com/intellij/ui/AppUIUtil.java	(date 1523040877681)
+--- AppUIUtil.java.original	2018-09-10 15:35:30.997298300 +0200
++++ AppUIUtil.java	2018-09-11 20:16:52.177327900 +0200
 @@ -36,6 +36,7 @@
+ import com.intellij.openapi.util.Condition;
  import com.intellij.openapi.util.Pair;
- import com.intellij.openapi.util.Ref;
  import com.intellij.openapi.util.SystemInfo;
 +import com.intellij.openapi.util.io.FileUtil;
- import com.intellij.openapi.util.text.StringUtil;
  import com.intellij.openapi.wm.ToolWindowManager;
  import com.intellij.ui.AppIcon.MacAppIcon;
-@@ -66,9 +67,10 @@
- import java.awt.*;
+ import com.intellij.ui.components.JBScrollPane;
+@@ -60,9 +61,10 @@
+ import java.awt.event.ActionEvent;
  import java.awt.event.AdjustmentEvent;
  import java.awt.event.AdjustmentListener;
 -import java.io.File;
@@ -23,10 +18,10 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 +import java.lang.reflect.InvocationTargetException;
  import java.net.URL;
 +import java.nio.charset.StandardCharsets;
- import java.util.*;
+ import java.util.ArrayList;
  import java.util.List;
- 
-@@ -253,13 +255,43 @@
+ import java.util.Locale;
+@@ -250,7 +252,36 @@
      return iconPath;
    }
  
@@ -63,33 +58,30 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
      if (ApplicationInfoImpl.getShadowInstance().isVendorJetBrains()) {
        EndUserAgreement.Document agreement = EndUserAgreement.getLatestDocument();
        if (!agreement.isAccepted()) {
-         try {
-           // todo: does not seem to request focus when shown
--          SwingUtilities.invokeAndWait(() -> showEndUserAgreementText(agreement.getText()));
-+          String title = ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement";
-+          SwingUtilities.invokeAndWait(() -> showEndUserAgreementText(title, agreement.getText()));
-           EndUserAgreement.setAccepted(agreement);
-         }
-         catch (Exception e) {
-@@ -287,10 +319,11 @@
-   /**
-    * todo: update to support GDPR requirements
-    *
-+   * @param title
-    * @param htmlText Updated version of Privacy Policy text if any.
--   *                 If it's {@code null}, the standard text from bundled resources would be used.
-+ *                 If it's {@code null}, the standard text from bundled resources would be used.
+@@ -301,6 +332,13 @@
+    * @param isPrivacyPolicy  true if this document is a privacy policy
     */
--  public static void showEndUserAgreementText(@NotNull String htmlText) {
-+  public static void showEndUserAgreementText(String title, @NotNull String htmlText) {
+   public static void showEndUserAgreementText(@NotNull String htmlText, final boolean isPrivacyPolicy) {
++    final String title = isPrivacyPolicy
++        ? ApplicationInfoImpl.getShadowInstance().getShortCompanyName() + " Privacy Policy"
++        : ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement";
++    showEndUserAgreementText(title, htmlText);
++  }
++
++  private static void showEndUserAgreementText(String title, @NotNull String htmlText) {
      DialogWrapper dialog = new DialogWrapper(true) {
        @Override
        protected JComponent createCenterPanel() {
-@@ -361,7 +394,7 @@
+@@ -380,12 +418,7 @@
        }
      };
      dialog.setModal(true);
--    dialog.setTitle(ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement");
+-    if (isPrivacyPolicy) {
+-      dialog.setTitle(ApplicationInfoImpl.getShadowInstance().getShortCompanyName() + " Privacy Policy");
+-    }
+-    else {
+-      dialog.setTitle(ApplicationNamesInfo.getInstance().getFullProductName() + " User License Agreement");
+-    }
 +    dialog.setTitle(title);
      dialog.setSize(JBUI.scale(509), JBUI.scale(395));
      dialog.show();
