@@ -66,10 +66,6 @@ Go to this [section](#unidentified-developer-message)
 > " The application is running in App Translocation, a macOS security mechanism for apps that are not properly installed. You cannot create permanent rules until you move the application to the Applications folder and launch it from there."
   
  Go to this [section](#app-translocation)
- 
-#### If you got an error about not being able to allocate enough heap
- 
- Go to this [section](#heap-allocation)
 
 ## Build
 

@@ -52,7 +52,7 @@ object Main {
     }
 
     object Sdk {
-      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_windows_x86.tar.gz")
+      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_windows_x64.tar.gz")
       val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_linux_x64.tar.gz")
       val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_osx_x64.tar.gz")
     }
@@ -108,7 +108,7 @@ object Main {
           matches("bin/.*\\.(bat|dll|exe|ico)") |
           matches("lib/libpty/win/.*")
       case Idea.Windows =>
-        matches("bin/idea.exe")
+        matches("bin/idea64.exe")
       case Sdk.Windows =>
         to("jre/")
       case Scala.Windows =>
