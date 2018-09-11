@@ -111,8 +111,6 @@ object Main {
         matches("bin/idea.exe")
       case Sdk.Windows =>
         to("jre/")
-      case Sdk.Mac =>
-        from("jdk/Contents/Home/src.zip") & to("jre/src.zip")
       case Scala.Windows =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -126,8 +124,6 @@ object Main {
           matches("lib/libpty/linux/.*")
       case Sdk.Linux =>
         to("jre/")
-      case Sdk.Mac =>
-        from("jdk/Contents/Home/src.zip") & to("jre/src.zip")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
