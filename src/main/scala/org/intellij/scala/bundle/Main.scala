@@ -12,7 +12,7 @@ import scala.Function._
   * @author Pavel Fatin
   */
 object Main {
-  private val Version = "2018-09-10"
+  private val Version = "2018-09-14"
 
   def main(args: Array[String]): Unit = {
     val target = file("./target")
