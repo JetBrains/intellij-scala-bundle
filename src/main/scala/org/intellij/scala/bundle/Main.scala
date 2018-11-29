@@ -12,7 +12,7 @@ import scala.Function._
   * @author Pavel Fatin
   */
 object Main {
-  private val Version = "2018-09-14"
+  private val Version = "2018-11-30"
 
   def main(args: Array[String]): Unit = {
     val target = file("./target")
@@ -36,18 +36,18 @@ object Main {
   }
 
   private object Versions {
-    val Idea = "182.4323.46"
-    val IdeaWindows = "2018.2.3" // for idea.exe only
-    val ScalaPlugin = "2018.2.11"
-    val Sdk = "8u152b1248.8"
-    val Scala = "2.12.6"
+    val Idea = "183.4284.148"
+    val IdeaWindows = "2018.3" // for idea.exe only
+    val ScalaPlugin = "2018.3.4"
+    val Sdk = "8u152b1343.15"
+    val Scala = "2.12.7"
   }
 
   private object Components {
     object Idea {
       val Bundle = Component(s"https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/${Versions.Idea}/ideaIC-${Versions.Idea}.zip")
       val Windows = Component(s"https://download.jetbrains.com/idea/ideaIC-${Versions.IdeaWindows}.win.zip")
-      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/49539/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
+      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/52174/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
       val Resources = Component("../../src/main/resources")
     }
 
