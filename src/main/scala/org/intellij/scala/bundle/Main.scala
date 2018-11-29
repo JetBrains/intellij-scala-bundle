@@ -93,6 +93,7 @@ object Main {
           matches("license/.*") |
           matches("plugins/(git4idea|github|junit|IntelliLang|maven|properties|terminal)/.*") |
           matches("build.txt") |
+          matches("product-info.json") |
           matches("LICENSE.txt") |
           matches("NOTICE.txt")
       case Idea.ScalaPlugin =>
@@ -103,7 +104,8 @@ object Main {
         matches(Scala.Sources.path) & repack("scala-library.zip", 9, from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
       case Idea.Resources =>
         matches("data/.*") |
-          from("BundleAgreement.html") & to("README.html")
+          from("BundleAgreement.html") & to("README.html") |
+          matches("bundle.txt")
     }
 
     private val WindowsSpecific: Descriptor = {
@@ -153,7 +155,9 @@ object Main {
     private def Patches(separator: String): Descriptor = {
       case Idea.Bundle =>
         matches("bin/idea\\.properties") & edit(_ + IdeaPropertiesPatch.replaceAll("\n", separator)) |
-          matches("build.txt") & edit(const(BuildTxtPatch.replaceAll("\n", separator))) |
+          any
+      case Idea.Resources =>
+        matches("bundle.txt") & edit(const(BundleTxt.replaceAll("\n", separator))) |
           any
       case _ => any
     }
@@ -170,12 +174,13 @@ object Main {
       "idea.system.path=${idea.home.path}/data/system\n\n" +
       "idea.plugins.path=${idea.home.path}/data/plugins\n      "
 
-    private def BuildTxtPatch =
+    private def BundleTxt =
       s"IntelliJ Scala Bundle $Version:\n\n" +
         s"* IntelliJ IDEA ${Versions.Idea}\n" +
         s"* Scala Plugin ${Versions.ScalaPlugin}\n" +
         s"* JetBrains SDK ${Versions.Sdk}\n" +
-        s"* Scala ${Versions.Scala}\n\n" +
+        s"* Scala ${Versions.Scala}\n" +
+        s"* EduTools ${Versions.EduToolsPlugin}\n\n" +
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
 
     private val MacPatches: Descriptor = {
