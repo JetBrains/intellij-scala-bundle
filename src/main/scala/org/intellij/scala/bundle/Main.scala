@@ -28,7 +28,8 @@ object Main {
     val commands = Seq(
       () => build(repository, Components.All, Descriptors.Windows)(target / s"intellij-scala-bundle-$Version-windows.zip"),
       () => build(repository, Components.All, Descriptors.Linux)(target / s"intellij-scala-bundle-$Version-linux.tar.gz"),
-      () => build(repository, Components.All, Descriptors.Mac)(target / s"intellij-scala-bundle-$Version-osx.tar.gz"))
+      () => build(repository, Components.All, Descriptors.Mac)(target / s"intellij-scala-bundle-$Version-osx.tar.gz"),
+    )
 
     commands.par.foreach(_.apply())
 
