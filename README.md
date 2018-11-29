@@ -35,9 +35,9 @@ In comparison (macOS):
 
 ## Download
 
-* [intellij-scala-bundle-2018-09-14-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-windows.zip)
-* [intellij-scala-bundle-2018-09-14-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-linux.tar.gz)
-* [intellij-scala-bundle-2018-09-14-osx.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-osx.tar.gz)
+* [intellij-scala-bundle-2018-11-30-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-windows.zip)
+* [intellij-scala-bundle-2018-11-30-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-linux.tar.gz)
+* [intellij-scala-bundle-2018-11-30-osx.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-osx.tar.gz)
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
 
@@ -107,3 +107,9 @@ The app is saved as an exception to your security settings, and you will be able
    
 - Simply move the bundle to a different directory.
 - To read more about **App Translocation**, please visit [here](https://developer.apple.com/library/content/technotes/tn2206/_index.html#//apple_ref/doc/uid/DTS40007919-CH1-TNTAG17).
+  
+### Heap Allocation
+ 
+It is very likely to see this problem when you're using Windows. Simply increase sbt heap size in IntelliJ by following the steps below:
+ 
+`IntelliJ IDEA` -> `Preference` -> `Build, Execute, Deployment` -> `Build Tools` -> `sbt` -> `JVM` -> `Maximum heap size to 800 MB`
