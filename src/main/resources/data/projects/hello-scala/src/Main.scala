@@ -8,6 +8,9 @@ object Main {
 
    Scala tutorials:
    http://docs.scala-lang.org/
+
+   EduTools plugin (File | Learn | Browse Courses)
+   https://plugins.jetbrains.com/plugin/10081-edutools
   */
 
   def main(args: Array[String]): Unit = {

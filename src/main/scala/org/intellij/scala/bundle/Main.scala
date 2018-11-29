@@ -39,6 +39,7 @@ object Main {
     val Idea = "183.4284.148"
     val IdeaWindows = "2018.3" // for idea.exe only
     val ScalaPlugin = "2018.3.4"
+    val EduToolsPlugin = "2.0-2018.2-906"
     val Sdk = "8u152b1343.15"
     val Scala = "2.12.7"
   }
@@ -48,6 +49,7 @@ object Main {
       val Bundle = Component(s"https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/${Versions.Idea}/ideaIC-${Versions.Idea}.zip")
       val Windows = Component(s"https://download.jetbrains.com/idea/ideaIC-${Versions.IdeaWindows}.win.zip")
       val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/52174/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
+      val EduToolsPlugin = Component(s"https://plugins.jetbrains.com/files/10081/50608/EduTools-${Versions.EduToolsPlugin}.zip")
       val Resources = Component("../../src/main/resources")
     }
 
@@ -66,7 +68,7 @@ object Main {
     val Repository = Component("./")
 
     val All = Seq(
-      Idea.Bundle, Idea.Windows, Idea.ScalaPlugin, Idea.Resources,
+      Idea.Bundle, Idea.Windows, Idea.ScalaPlugin, Idea.EduToolsPlugin, Idea.Resources,
       Sdk.Windows, Sdk.Linux, Sdk.Mac,
       Scala.Windows, Scala.Unix, Scala.Sources,
       Repository
@@ -94,6 +96,8 @@ object Main {
           matches("LICENSE.txt") |
           matches("NOTICE.txt")
       case Idea.ScalaPlugin =>
+        to("data/plugins/")
+      case Idea.EduToolsPlugin =>
         to("data/plugins/")
       case Repository =>
         matches(Scala.Sources.path) & repack("scala-library.zip", 9, from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
