@@ -185,6 +185,9 @@ object Main {
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
 
     private val MacPatches: Descriptor = {
+      case Idea.Bundle =>
+        matches("Info\\.plist") & edit(_.replaceFirst("NoJavaDistribution", "jdk-bundled")) |
+        any
       case Idea.Resources =>
         matches("data/config/options/jdk\\.table\\.xml") &
           edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$\\/jre", "\\$APPLICATION_HOME_DIR\\$/jdk/Contents/Home")) | any
