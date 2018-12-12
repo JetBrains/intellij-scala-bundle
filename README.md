@@ -52,11 +52,11 @@ Download, extract and run the application.
 
 In addition to using the above downloads, you can create your own version of the bundle from scratch:
 
-1) Clone the project:
+1. Clone the project:
 
     $ git clone https://github.com/JetBrains/intellij-scala-bundle
 
-2) Start the assembly:
+2. Start the assembly:
 
     $ sbt run
 
