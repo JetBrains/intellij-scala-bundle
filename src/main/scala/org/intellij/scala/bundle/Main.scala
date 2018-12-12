@@ -14,6 +14,8 @@ import scala.Function._
 object Main {
   private val Version = "2018-11-30"
 
+  private val MacHostProperties = new File("mac-host.properties")
+
   def main(args: Array[String]): Unit = {
     val target = file("./target")
 
@@ -32,6 +34,15 @@ object Main {
     )
 
     commands.par.foreach(_.apply())
+
+    if (MacHostProperties.exists) {
+      println("Creating a signed disk image for OSX...")
+      MacHost.createSignedDiskImage(s"intellij-scala-bundle-$Version", Versions.Idea, MacHostProperties)
+    } else {
+      System.err.println(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
+      System.err.println("See https://github.com/JetBrains/intellij-community/blob/master/platform/build-scripts/groovy/" +
+        "org/jetbrains/intellij/build/MacHostProperties.groovy")
+    }
 
     info(s"Done.")
   }
