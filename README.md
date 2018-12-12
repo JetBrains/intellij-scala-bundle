@@ -50,7 +50,13 @@ Download, extract and run the application.
 
 ## Custom Builds
 
-In addition to downloading the ready-made files, you may create your own versions of the bundle. To create the bundle, invoke:
+In addition to using the above downloads, you can create your own version of the bundle from scratch:
+
+1) Clone the project:
+
+    $ git clone https://github.com/JetBrains/intellij-scala-bundle
+
+2) Start the assembly:
 
     $ sbt run
 
