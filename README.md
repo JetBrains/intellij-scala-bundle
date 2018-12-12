@@ -54,15 +54,15 @@ In addition to using the above downloads, you can create your own version of the
 
 1. Clone the project:
 
-    ```
-    $ git clone https://github.com/JetBrains/intellij-scala-bundle
-    ```
+  ```
+  $ git clone https://github.com/JetBrains/intellij-scala-bundle
+  ```
 
 2. Start the assembly:
 
-    ```
-    $ sbt run
-    ```
+  ```
+  $ sbt run
+  ```
 
 The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
 
