@@ -50,9 +50,9 @@ Download, extract and run the application.
 
 The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
 
-You can use File | Import Settings and File | Export Settings to transfer IDEA settings.
+You can use *File | Import Settings* and *File | Export Settings* to transfer the IDEA settings.
 
-You can update or install IDEA plugins via IDEA | Settings | Plugins.
+You can update or install IDEA plugins via *Settings | Plugins*.
 
 The bundle doesn't include Git binaries (though it includes Git and GitHub integration). You may [install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) separately, if needed.
 
