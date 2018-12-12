@@ -3,7 +3,7 @@
 
 # IntelliJ Scala Bundle
 
-A proof of the concept bundle that includes:
+A bundle that includes:
 
 1. [IntelliJ IDEA Community](https://www.jetbrains.com/idea/), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
 2. [Scala plugin](https://confluence.jetbrains.com/display/SCA/Scala+Plugin+for+IntelliJ+IDEA) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
