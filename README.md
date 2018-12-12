@@ -5,14 +5,14 @@
 
 A bundle that includes:
 
-1. [IntelliJ IDEA Community](https://www.jetbrains.com/idea/), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
-2. [Scala plugin](https://confluence.jetbrains.com/display/SCA/Scala+Plugin+for+IntelliJ+IDEA) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
+1. [IntelliJ IDEA Community](https://github.com/JetBrains/intellij-community), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
+2. [Scala plugin](https://github.com/JetBrains/intellij-scala) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
 3. [SBT launcher](https://github.com/sbt/launcher), as a part of the Scala plugin ([downloads](https://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/)).
 4. [JetBrains SDK](https://github.com/JetBrains/jdk8u), ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
 5. JetBrains SDK sources.
-6. [Scala](https://www.scala-lang.org/) binaries ([downloads](https://www.scala-lang.org/download/)).
-7. [Scala Standard Library](https://www.scala-lang.org/api/current/index.html) sources ([downloads](https://www.scala-lang.org/download/)).
-8. [EduTools plugin](https://plugins.jetbrains.com/plugin/10081-edutools)
+6. [Scala](https://github.com/scala/scala) binaries ([downloads](https://www.scala-lang.org/download/)).
+7. [Scala Standard Library](https://github.com/scala/scala/tree/2.13.x/src/library) sources ([downloads](https://www.scala-lang.org/download/)).
+8. [EduTools plugin](https://github.com/JetBrains/educational-plugin) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/10081-edutools)).
 9. Example Scala project.
 10. IntelliJ IDEA settings for all the above.
 
