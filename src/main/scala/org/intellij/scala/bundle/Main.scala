@@ -13,7 +13,7 @@ import scala.Function._
   */
 object Main {
   private val Version = "2018-11-30"
-
+  private val Application = s"intellij-scala-bundle-$Version"
   private val MacHostProperties = new File("mac-host.properties")
 
   def main(args: Array[String]): Unit = {
@@ -28,16 +28,17 @@ object Main {
     }
 
     val commands = Seq(
-      () => build(repository, Components.All, Descriptors.Windows)(target / s"intellij-scala-bundle-$Version-windows.zip"),
-      () => build(repository, Components.All, Descriptors.Linux)(target / s"intellij-scala-bundle-$Version-linux.tar.gz"),
-      () => build(repository, Components.All, Descriptors.Mac)(target / s"intellij-scala-bundle-$Version-osx.tar.gz"),
+      () => build(repository, Components.All, Descriptors.Windows)(target / s"$Application-windows.zip"),
+      () => build(repository, Components.All, Descriptors.Linux)(target / s"$Application-linux.tar.gz"),
+      () => build(repository, Components.All, Descriptors.Mac)(target / s"$Application-osx.tar.gz"),
     )
 
     commands.par.foreach(_.apply())
 
     if (MacHostProperties.exists) {
       println("Creating a signed disk image for OSX...")
-      MacHost.createSignedDiskImage(s"intellij-scala-bundle-$Version", Versions.Idea, MacHostProperties)
+      MacHost.createSignedDiskImage(Application, Versions.Idea, MacHostProperties)
+      (target / s"$Application-osx.tar.gz").delete()
     } else {
       System.err.println(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
       System.err.println("See https://github.com/JetBrains/intellij-community/blob/master/platform/build-scripts/groovy/" +
@@ -221,11 +222,11 @@ object Main {
           matches("idea.sh")) & setMode(100755) | any
     }
 
-    val Windows: Descriptor = ((Common | WindowsSpecific) & Repack & Patches("\r\n")).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
+    val Windows: Descriptor = ((Common | WindowsSpecific) & Repack & Patches("\r\n")).andThen(_ & to(s"$Application/"))
 
-    val Linux: Descriptor  = ((Common | LinuxSpecific) & Repack & Patches("\n") & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version/"))
+    val Linux: Descriptor  = ((Common | LinuxSpecific) & Repack & Patches("\n") & Permissions).andThen(_ & to(s"$Application/"))
 
-    val Mac: Descriptor = ((Common | MacSpecific) & Repack & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"intellij-scala-bundle-$Version.app/Contents/"))
+    val Mac: Descriptor = ((Common | MacSpecific) & Repack & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {

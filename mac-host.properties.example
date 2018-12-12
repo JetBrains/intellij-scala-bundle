@@ -1,0 +1,5 @@
+host=machost.local
+fingerprint=00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+login=user
+password=12345
+identity=Developer ID Application: Company (A1B2C3D4E5)

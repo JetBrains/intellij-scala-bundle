@@ -5,10 +5,10 @@
 
 A bundle that includes:
 
-1. [IntelliJ IDEA Community](https://github.com/JetBrains/intellij-community), with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
+1. [IntelliJ IDEA Community](https://github.com/JetBrains/intellij-community) with selected plugins ([downloads](https://www.jetbrains.com/idea/download/)).
 2. [Scala plugin](https://github.com/JetBrains/intellij-scala) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/1347-scala)).
 3. [SBT launcher](https://github.com/sbt/launcher), as a part of the Scala plugin ([downloads](https://dl.bintray.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/)).
-4. [JetBrains SDK](https://github.com/JetBrains/jdk8u), ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
+4. [JetBrains SDK](https://github.com/JetBrains/jdk8u) ([downloads](https://bintray.com/jetbrains/intellij-jdk/)).
 5. JetBrains SDK sources.
 6. [Scala](https://github.com/scala/scala) binaries ([downloads](https://www.scala-lang.org/download/)).
 7. [Scala Standard Library](https://github.com/scala/scala/tree/2.13.x/src/library) sources ([downloads](https://www.scala-lang.org/download/)).
@@ -48,6 +48,14 @@ By proceeding with use of the bundle, you understand that the parts of the bundl
 
 Download, extract and run the application.
 
+The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
+
+You can use File | Import Settings and File | Export Settings to transfer IDEA settings.
+
+You can update or install IDEA plugins via IDEA | Settings | Plugins.
+
+The bundle doesn't include Git binaries (though it includes Git and GitHub integration). You may [install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) separately, if needed.
+
 ## Custom Builds
 
 In addition to using the above downloads, you can create your own version of the bundle from scratch:
@@ -64,14 +72,8 @@ In addition to using the above downloads, you can create your own version of the
   $ sbt run
 ```
 
-The bundle stores all its settings and caches inside the `data` subdirectory (except for Ivy and Maven repositories, which are system-wide).
-
-You can update / install IDEA plugins via IDEA / Settings / Plugins.
-
-It should be possible to include more example projects in the bundle.
+It's possible to include more example projects in the bundle.
 
 Distributors of the bundle must display the text of [bundle agreement](src/main/resources/BundleAgreement.html) (or link to that text) on download page.
 
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
-
-This bundle doesn't include Git, consider [installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) separately, if needed.
