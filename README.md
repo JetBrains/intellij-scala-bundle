@@ -34,6 +34,8 @@ In comparison (macOS):
 |Time        |>15 min. | <1 min. |1/50 |
 |Clicks      |~100     | ~1      |1/100|
 
+Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere)](https://www.youtube.com/watch?v=YDKrwYgQsB8).
+
 ## Download
 
 * [intellij-scala-bundle-2018-11-30-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-windows.zip)
@@ -48,9 +50,7 @@ Download, extract and run the application.
 
 ## Custom Builds
 
-In addition to downloading the ready-made files, you may create your own versions of the bundle.
-
-To create the bundle, invoke:
+In addition to downloading the ready-made files, you may create your own versions of the bundle. To create the bundle, invoke:
 
     $ sbt run
 
