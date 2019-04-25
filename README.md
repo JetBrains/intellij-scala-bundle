@@ -12,9 +12,8 @@ A bundle that includes:
 5. JetBrains SDK sources.
 6. [Scala](https://github.com/scala/scala) binaries ([downloads](https://www.scala-lang.org/download/)).
 7. [Scala Standard Library](https://github.com/scala/scala/tree/2.13.x/src/library) sources ([downloads](https://www.scala-lang.org/download/)).
-8. [EduTools plugin](https://github.com/JetBrains/educational-plugin) for IntelliJ IDEA ([downloads](https://plugins.jetbrains.com/plugin/10081-edutools)).
-9. Example Scala project.
-10. IntelliJ IDEA settings for all the above.
+8. Example Scala project.
+9. IntelliJ IDEA settings for all the above.
 
 The bundle is:
 
