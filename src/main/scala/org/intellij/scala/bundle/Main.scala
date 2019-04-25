@@ -60,7 +60,7 @@ object Main {
     object Idea {
       val Bundle = Component(s"https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/${Versions.Idea}/ideaIC-${Versions.Idea}.zip")
       val Windows = Component(s"https://download.jetbrains.com/idea/ideaIC-${Versions.IdeaWindows}.win.zip")
-      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/files/1347/52174/scala-intellij-bin-${Versions.ScalaPlugin}.zip")
+      val ScalaPlugin = Component(s"https://plugins.jetbrains.com/plugin/download?pluginId=org.intellij.scala&version=${Versions.ScalaPlugin}", s"scala-intellij-bin-${Versions.ScalaPlugin}.zip")
       val Resources = Component("../../src/main/resources")
     }
 
