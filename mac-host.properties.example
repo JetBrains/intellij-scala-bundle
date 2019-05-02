@@ -1,3 +1,4 @@
+# See https://github.com/JetBrains/intellij-community/blob/master/platform/build-scripts/groovy/org/jetbrains/intellij/build/MacHostProperties.groovy
 host=machost.local
 fingerprint=00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
 login=user

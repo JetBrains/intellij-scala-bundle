@@ -41,8 +41,7 @@ object Main {
       (target / s"$Application-osx.tar.gz").delete()
     } else {
       System.err.println(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
-      System.err.println("See https://github.com/JetBrains/intellij-community/blob/master/platform/build-scripts/groovy/" +
-        "org/jetbrains/intellij/build/MacHostProperties.groovy")
+      System.err.println("See mac-host.properties.example")
     }
 
     info(s"Done.")
