@@ -2,6 +2,7 @@ package org.intellij.scala
 
 import java.io._
 import java.net.URL
+import java.util.Properties
 
 import org.apache.commons.compress.utils.IOUtils
 
@@ -35,6 +36,17 @@ package object bundle {
         if (!destination.delete()) {
           destination.deleteOnExit()
         }
+    }
+  }
+
+  def propertiesIn(file: File): Properties = {
+    val properties = new Properties()
+    val input = new BufferedInputStream(new FileInputStream(file))
+    try {
+      properties.load(input)
+      properties
+    } finally {
+      input.close()
     }
   }
 

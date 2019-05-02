@@ -48,11 +48,14 @@ object Main {
   }
 
   private object Versions {
-    val Idea = "183.4284.148"
-    val IdeaWindows = "2018.3" // for idea.exe only
-    val ScalaPlugin = "2018.3.4"
-    val Sdk = "8u152b1343.15"
-    val Scala = "2.12.7"
+    private val properties = propertiesIn(file("version.properties"))
+    import properties.{getProperty => valueOf}
+
+    val Idea = valueOf("Idea")
+    val IdeaWindows = valueOf("IdeaWindows") // for idea.exe only
+    val ScalaPlugin = valueOf("ScalaPlugin")
+    val Sdk = valueOf("Sdk")
+    val Scala = valueOf("Scala")
   }
 
   private object Components {
