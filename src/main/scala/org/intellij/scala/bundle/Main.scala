@@ -7,13 +7,13 @@ import org.intellij.scala.bundle.Descriptor._
 import org.intellij.scala.bundle.Mapper.{matches, _}
 
 import scala.Function._
+import scala.util.matching.Regex
 
 /**
   * @author Pavel Fatin
   */
 object Main {
-  private val Version = "2018-11-30"
-  private val Application = s"intellij-scala-bundle-$Version"
+  private val Application = s"intellij-scala-bundle-${Versions.Bundle}"
   private val MacHostProperties = new File("mac-host.properties")
 
   def main(args: Array[String]): Unit = {
@@ -51,6 +51,8 @@ object Main {
     private val properties = propertiesIn(file("version.properties"))
     import properties.{getProperty => valueOf}
 
+    val Bundle = valueOf("Bundle")
+
     val Idea = valueOf("Idea")
     val IdeaWindows = valueOf("IdeaWindows") // for idea.exe only
     val ScalaPlugin = valueOf("ScalaPlugin")
@@ -67,9 +69,16 @@ object Main {
     }
 
     object Sdk {
-      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_windows_x64.tar.gz")
-      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_linux_x64.tar.gz")
-      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbsdk${Versions.Sdk}_osx_x64.tar.gz")
+      private val Pattern = new Regex("""\d+\.(\d+)\.\d+_(\d+)-release-(\d+)-b(\d+)""")
+
+      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
+      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
+      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
+
+      private def format(version: String, os: String) = version match {
+        case Pattern(n1, n2, n3, n4) => s"${n1}u$n2-$os-x64-b$n3.$n4"
+        case v => throw new IllegalArgumentException("Version " + v + "doesn't match " + Pattern.pattern.pattern())
+      }
     }
 
     object Scala {
@@ -186,7 +195,7 @@ object Main {
       "idea.plugins.path=${idea.home.path}/data/plugins\n      "
 
     private def BundleTxt =
-      s"IntelliJ Scala Bundle $Version:\n\n" +
+      s"IntelliJ Scala Bundle ${Versions.Bundle}:\n\n" +
         s"* IntelliJ IDEA ${Versions.Idea}\n" +
         s"* Scala Plugin ${Versions.ScalaPlugin}\n" +
         s"* JetBrains SDK ${Versions.Sdk}\n" +
