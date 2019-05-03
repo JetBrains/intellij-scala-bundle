@@ -195,11 +195,11 @@ object Main {
       "idea.plugins.path=${idea.home.path}/data/plugins\n      "
 
     private def BundleTxt =
-      s"IntelliJ Scala Bundle ${Versions.Bundle}:\n\n" +
+      s"IntelliJ Scala Bundle ${Versions.Bundle}:\n" +
         s"* IntelliJ IDEA ${Versions.Idea}\n" +
         s"* Scala Plugin ${Versions.ScalaPlugin}\n" +
         s"* JetBrains SDK ${Versions.Sdk}\n" +
-        s"* Scala ${Versions.Scala}\n" +
+        s"* Scala ${Versions.Scala}\n\n" +
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
 
     private val MacPatches: Descriptor = {
