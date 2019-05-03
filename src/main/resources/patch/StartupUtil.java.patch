@@ -1,25 +1,78 @@
 --- StartupUtil.java
 +++ StartupUtil.java
-@@ -114,6 +114,22 @@
+@@ -60,6 +60,7 @@
+ public class StartupUtil {
+   public static final String NO_SPLASH = "nosplash";
+   public static final String IDEA_CLASS_BEFORE_APPLICATION_PROPERTY = "idea.class.before.app";
++  public static final String IDEA_STARTUP_LISTENER_PROPERTY = "idea.startup.listener";
+ 
+   private static SocketLock ourSocketLock;
+ 
+@@ -84,6 +85,31 @@
+     default void beforeImportConfigs() {}
+   }
+ 
++  @NotNull
++  private static StartupListener createStartupListener() {
++    String className = System.getProperty(IDEA_STARTUP_LISTENER_PROPERTY);
++    return className != null ? createStartupListener(className) : phase -> {};
++  }
++
++  @SuppressWarnings("UseOfSystemOutOrSystemErr")
++  private static StartupListener createStartupListener(String className) {
++    try {
++      return (StartupListener)Class.forName(className).newInstance();
++    }
++    catch (ClassNotFoundException e) {
++      System.err.println(IDEA_STARTUP_LISTENER_PROPERTY + " class not found: " + className);
++    }
++    catch (IllegalAccessException e) {
++      System.err.println("Cannot access " + IDEA_STARTUP_LISTENER_PROPERTY + " class: " + className);
++    }
++    catch (InstantiationException e) {
++      System.err.println("Cannot instantiate " + IDEA_STARTUP_LISTENER_PROPERTY + " class: " + className);
++    }
++
++    System.exit(Main.INSTALLATION_CORRUPTED);
++    throw new RuntimeException(); // returns Nothing
++  }
++
+   private static void runPreAppClass(Logger log) {
+     String classBeforeAppProperty = System.getProperty(IDEA_CLASS_BEFORE_APPLICATION_PROPERTY);
+     if (classBeforeAppProperty != null) {
+@@ -98,6 +124,8 @@
+   }
+ 
+   static void prepareAndStart(String[] args, AppStarter appStarter) {
++    StartupListener startupListener = createStartupListener();
++
+     IdeaForkJoinWorkerThreadFactory.setupForkJoinCommonPool(Main.isHeadless(args));
+     boolean newConfigFolder = false;
+ 
+@@ -127,6 +155,8 @@
        e.printStackTrace();
      }
  
-+    if (SystemInfo.isMac && PathManager.getSystemPath().contains("/AppTranslocation/")) {
-+      String message = "Please use Finder to move the application to another location before launching.\n\n" +
-+                       "Since v10.12 macOS launches downloaded applications as read-only.\n" +
-+                       "Moving application to any other location lifts that restriction.";
-+      Main.showMessage("App Translocation detected", message, false);
-+      System.exit(Main.DIR_CHECK_FAILED);
-+    }
-+
-+    if (SystemInfo.isMac && !new File(PathManager.getSystemPath()).canWrite()) {
-+      String message = "Please copy the application to your system before launching.\n\n" +
-+                       "The application needs to write data, while DMG images are read-only.\n" +
-+                       "Copying the program to Applications or to Desktop lifts the restriction.";
-+      Main.showMessage("Read-only filesystem detected", message, false);
-+      System.exit(Main.DIR_CHECK_FAILED);
-+    }
++    startupListener.before(StartupPhase.FOLDERS_CHECK);
 +
      // note: uses config folder!
      if (!checkSystemFolders()) {
        System.exit(Main.DIR_CHECK_FAILED);
+@@ -147,6 +177,9 @@
+     loadSystemLibraries(log);
+     fixProcessEnvironment(log);
+ 
++    startupListener.before(StartupPhase.LOOK_AND_FEEL);
++
++    // consider using StartupListener instead
+     runPreAppClass(log);
+ 
+     if (!Main.isHeadless()) {
+@@ -164,6 +197,7 @@
+     if (!Main.isHeadless()) {
+       AppUIUtil.updateWindowIcon(JOptionPane.getRootFrame());
+       AppUIUtil.registerBundledFonts();
++      startupListener.before(StartupPhase.USER_AGREEMENT);
+       AppUIUtil.showUserAgreementAndConsentsIfNeeded();
+     }
+ 

@@ -108,8 +108,11 @@ object Main {
             source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
             using(Source(file("./src/main/resources/patch")))(_.collect(
               matches("AppUIUtil.class") & to("com/intellij/ui/") |
+              matches("BundleStartupListener.*\\.class") & to("com/intellij/idea/") |
+              matches("StartupListener.class") & to("com/intellij/idea/") |
+              matches("StartupPhase.class") & to("com/intellij/idea/") |
               matches("StartupUtil.class") & to("com/intellij/idea/") |
-                matches("BundleAgreement.html") & to("com/intellij/ui/")).foreach(destination(_)))
+              matches("BundleAgreement.html") & to("com/intellij/idea/")).foreach(destination(_)))
           } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
@@ -190,6 +193,7 @@ object Main {
     }
 
     private val IdeaPropertiesPatch: String = "\n" +
+      "idea.startup.listener=com.intellij.idea.BundleStartupListener\n\n" +
       "idea.config.path=${idea.home.path}/data/config\n\n" +
       "idea.system.path=${idea.home.path}/data/system\n\n" +
       "idea.plugins.path=${idea.home.path}/data/plugins\n      "

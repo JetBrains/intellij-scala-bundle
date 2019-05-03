@@ -1,79 +1,25 @@
 --- AppUIUtil.java
 +++ AppUIUtil.java
-@@ -24,6 +24,7 @@
- import com.intellij.openapi.util.Condition;
- import com.intellij.openapi.util.Pair;
- import com.intellij.openapi.util.SystemInfo;
-+import com.intellij.openapi.util.io.FileUtil;
- import com.intellij.openapi.wm.ToolWindowManager;
- import com.intellij.ui.AppIcon.MacAppIcon;
- import com.intellij.ui.components.JBScrollPane;
-@@ -44,10 +45,10 @@
- import javax.swing.text.html.StyleSheet;
- import java.awt.*;
- import java.awt.event.ActionEvent;
--import java.io.File;
--import java.io.IOException;
--import java.io.InputStream;
-+import java.io.*;
-+import java.lang.reflect.InvocationTargetException;
- import java.net.URL;
-+import java.nio.charset.StandardCharsets;
- import java.util.ArrayList;
- import java.util.List;
- import java.util.Locale;
-@@ -256,7 +257,36 @@
-     return iconPath;
-   }
- 
-+  public static void showBundleNoticeIfNeeded() {
-+    String lib = new File(PathUtil.getJarPathForClass(AppUIUtil.class)).getParent();
-+    File bundleAgreement = new File(lib + "/../data/config/options/bundleAgreement");
-+
-+    if (!bundleAgreement.exists()) {
-+      try (Reader reader = new InputStreamReader(new BufferedInputStream(
-+        AppUIUtil.class.getResourceAsStream("BundleAgreement.html")), StandardCharsets.UTF_8)) {
-+
-+        String text = new String(FileUtil.adaptiveLoadText(reader));
-+        SwingUtilities.invokeAndWait(() -> showEndUserAgreementText("IntelliJ Scala Bundle Agreement", text));
-+
-+        File optionsDirectory = bundleAgreement.getParentFile();
-+
-+        if (!optionsDirectory.exists() && !optionsDirectory.mkdirs()) {
-+          throw new IOException("Cannot create directory: " + bundleAgreement.getAbsolutePath());
-+        }
-+
-+        try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(bundleAgreement))) {
-+          stream.write("accepted".getBytes(StandardCharsets.UTF_8));
-+        }
-+      }
-+      catch (Exception e) {
-+        Logger.getInstance(AppUIUtil.class).warn(e);
-+      }
-+    }
-+  }
-+
-   public static void showUserAgreementAndConsentsIfNeeded() {
-+    showBundleNoticeIfNeeded();
-+
-     if (ApplicationInfoImpl.getShadowInstance().isVendorJetBrains()) {
-       EndUserAgreement.Document agreement = EndUserAgreement.getLatestDocument();
-       if (!agreement.isAccepted()) {
-@@ -306,6 +336,13 @@
+@@ -317,7 +317,17 @@
     * @param isPrivacyPolicy  true if this document is a privacy policy
     */
    public static void showEndUserAgreementText(@NotNull String htmlText, final boolean isPrivacyPolicy) {
+-    DialogWrapper dialog = new DialogWrapper(true) {
 +    final String title = isPrivacyPolicy
-+        ? ApplicationInfoImpl.getShadowInstance().getShortCompanyName() + " Privacy Policy"
-+        : ApplicationNamesInfo.getInstance().getFullProductName() + " User Agreement";
++                         ? ApplicationInfoImpl.getShadowInstance().getShortCompanyName() + " Privacy Policy"
++                         : ApplicationNamesInfo.getInstance().getFullProductName() + " User Agreement";
 +    showEndUserAgreementText(title, htmlText);
 +  }
 +
-+  private static void showEndUserAgreementText(String title, @NotNull String htmlText) {
-     DialogWrapper dialog = new DialogWrapper(true) {
++  /**
++   * Used by {@link com.intellij.idea.StartupListener}
++   */
++  public static void showEndUserAgreementText(String title, @NotNull String htmlText) {
++      DialogWrapper dialog = new DialogWrapper(true) {
  
        private JEditorPane myViewer;
-@@ -378,12 +415,7 @@
+ 
+@@ -389,12 +399,7 @@
        }
      };
      dialog.setModal(true);
