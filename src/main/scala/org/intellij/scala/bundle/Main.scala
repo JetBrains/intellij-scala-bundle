@@ -106,7 +106,7 @@ object Main {
           matches("bin/log\\.xml") |
           matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar", 0) { (source, destination) =>
             source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
-            using(Source(file("./src/main/resources")))(_.collect(
+            using(Source(file("./src/main/resources/patch")))(_.collect(
               matches("AppUIUtil.class") & to("com/intellij/ui/") |
               matches("StartupUtil.class") & to("com/intellij/idea/") |
                 matches("BundleAgreement.html") & to("com/intellij/ui/")).foreach(destination(_)))
@@ -124,7 +124,7 @@ object Main {
         matches(Scala.Sources.path) & repack("scala-library.zip", 9, from(s"scala-${Versions.Scala}/src/library/")) & to("scala/src/")
       case Idea.Resources =>
         matches("data/.*") |
-          from("BundleAgreement.html") & to("README.html") |
+          from("patch/BundleAgreement.html") & to("README.html") |
           matches("bundle.txt")
     }
 
