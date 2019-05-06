@@ -58,16 +58,6 @@
      // note: uses config folder!
      if (!checkSystemFolders()) {
        System.exit(Main.DIR_CHECK_FAILED);
-@@ -147,6 +177,9 @@
-     loadSystemLibraries(log);
-     fixProcessEnvironment(log);
- 
-+    startupListener.before(StartupPhase.LOOK_AND_FEEL);
-+
-+    // consider using StartupListener instead
-     runPreAppClass(log);
- 
-     if (!Main.isHeadless()) {
 @@ -164,6 +197,7 @@
      if (!Main.isHeadless()) {
        AppUIUtil.updateWindowIcon(JOptionPane.getRootFrame());

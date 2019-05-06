@@ -3,6 +3,5 @@ package com.intellij.idea;
 
 public enum StartupPhase {
   FOLDERS_CHECK,
-  LOOK_AND_FEEL,
   USER_AGREEMENT
 }
