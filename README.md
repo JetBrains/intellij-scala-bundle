@@ -41,7 +41,7 @@ Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere
 * [intellij-scala-bundle-2019-05-02-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-05-02/intellij-scala-bundle-2019-05-02-linux.tar.gz)
 * [intellij-scala-bundle-2019-05-02-osx.dmg](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-05-02/intellij-scala-bundle-2019-05-02-osx.dmg)
 
-By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/BundleAgreement.html)).
+By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/patch/BundleAgreement.html)).
 
 ## Usage
 
@@ -73,6 +73,6 @@ In addition to using the above downloads, you can create your own version of the
 
 It's possible to include more example projects in the bundle.
 
-Distributors of the bundle must display the text of [bundle agreement](src/main/resources/BundleAgreement.html) (or link to that text) on download page.
+Distributors of the bundle must display the text of [bundle agreement](src/main/resources/patch/BundleAgreement.html) (or link to that text) on download page.
 
-Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).
+Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes.
