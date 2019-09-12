@@ -54,13 +54,27 @@
       </pane>
     </panes>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Scala Console.Scala REPL">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../" />
       <module name="hello-scala" />
       <envs />
     </configuration>
+    <configuration name="Scala REPL" type="ScalaScriptConsoleRunConfiguration" factoryName="Scala Console" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="hello-scala" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="javaOptions" value="-Djline.terminal=NONE" />
+      <option name="myConsoleArgs" value="-usejavacp" />
+      <option name="workingDirectory" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Scala Console.Scala REPL" />
+    </list>
   </component>
   <component name="ToolWindowManager">
     <editor active="true" />
