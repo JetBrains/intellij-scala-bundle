@@ -1,15 +1,15 @@
 --- StartupUtil.java
 +++ StartupUtil.java
-@@ -60,6 +60,7 @@
+@@ -78,6 +78,7 @@
  public class StartupUtil {
-   public static final String NO_SPLASH = "nosplash";
+   public static final String FORCE_PLUGIN_UPDATES = "idea.force.plugin.updates";
    public static final String IDEA_CLASS_BEFORE_APPLICATION_PROPERTY = "idea.class.before.app";
 +  public static final String IDEA_STARTUP_LISTENER_PROPERTY = "idea.startup.listener";
  
-   private static SocketLock ourSocketLock;
+   @SuppressWarnings("SpellCheckingInspection") private static final String MAGIC_MAC_PATH = "/AppTranslocation/";
  
-@@ -84,6 +85,31 @@
-     default void beforeImportConfigs() {}
+@@ -127,6 +128,31 @@
+     }
    }
  
 +  @NotNull
@@ -40,29 +40,30 @@
    private static void runPreAppClass(Logger log) {
      String classBeforeAppProperty = System.getProperty(IDEA_CLASS_BEFORE_APPLICATION_PROPERTY);
      if (classBeforeAppProperty != null) {
-@@ -98,6 +124,8 @@
-   }
+@@ -143,6 +169,8 @@
  
-   static void prepareAndStart(String[] args, AppStarter appStarter) {
+   static void prepareAndStart(@NotNull String[] args, @NotNull AppStarter appStarter)
+     throws InvocationTargetException, InterruptedException, ExecutionException {
 +    StartupListener startupListener = createStartupListener();
 +
      IdeaForkJoinWorkerThreadFactory.setupForkJoinCommonPool(Main.isHeadless(args));
-     boolean newConfigFolder = false;
  
-@@ -127,6 +155,8 @@
-       e.printStackTrace();
-     }
+     // Before lockDirsAndConfigureLogger can be executed only tasks that do not require log,
+@@ -180,6 +208,8 @@
+     // this check must be performed before system directories are locked
+     boolean newConfigFolder = !Main.isHeadless() && !new File(PathManager.getConfigPath()).exists();
  
 +    startupListener.before(StartupPhase.FOLDERS_CHECK);
 +
-     // note: uses config folder!
-     if (!checkSystemFolders()) {
-       System.exit(Main.DIR_CHECK_FAILED);
-@@ -164,6 +197,7 @@
-     if (!Main.isHeadless()) {
-       AppUIUtil.updateWindowIcon(JOptionPane.getRootFrame());
-       AppUIUtil.registerBundledFonts();
-+      startupListener.before(StartupPhase.USER_AGREEMENT);
-       AppUIUtil.showUserAgreementAndConsentsIfNeeded();
-     }
+     Logger log = lockDirsAndConfigureLogger(args);
  
+     boolean isParallelExecution = SystemProperties.getBooleanProperty("idea.prepare.app.start.parallel", true);
+@@ -220,6 +250,8 @@
+         appStarter.importFinished(newConfigDir);
+       }
+ 
++      startupListener.before(StartupPhase.USER_AGREEMENT);
++
+       showUserAgreementAndConsentsIfNeeded(log);
+ 
+       if (newConfigFolder && !ConfigImportHelper.isConfigImported()) {

@@ -69,14 +69,14 @@ object Main {
     }
 
     object Sdk {
-      private val Pattern = new Regex("""\d+\.(\d+)\.\d+_(\d+)-release-(\d+)-b(\d+)""")
+      private val Pattern = new Regex("""(\d+)\.(\d+)\.(\d+)\+\d+-b(\d+)\.(\d+)""")
 
-      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
-      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
-      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jdk/download_file?file_path=jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
+      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
+      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
+      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
 
       private def format(version: String, os: String) = version match {
-        case Pattern(n1, n2, n3, n4) => s"${n1}u$n2-$os-x64-b$n3.$n4"
+        case Pattern(n1, n2, n3, n4, n5) => s"${n1}_${n2}_$n3-$os-x64-b$n4.$n5"
         case v => throw new IllegalArgumentException("Version " + v + "doesn't match " + Pattern.pattern.pattern())
       }
     }
@@ -116,7 +116,7 @@ object Main {
           } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
-          matches("plugins/(git4idea|github|junit|IntelliLang|maven|properties|terminal)/.*") |
+          matches("plugins/(git4idea|github|java|java-ide-customization|junit|IntelliLang|maven|properties|terminal)/.*") |
           matches("build.txt") |
           matches("product-info.json") |
           matches("LICENSE.txt") |
@@ -139,7 +139,7 @@ object Main {
       case Idea.Windows =>
         matches("bin/idea64.exe")
       case Sdk.Windows =>
-        to("jre/")
+        from("jbrsdk") & to("jbr/")
       case Scala.Windows =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -152,7 +152,7 @@ object Main {
           matches("bin/.*\\.(py|sh|png)") | matches("bin/fsnotifier") |
           matches("lib/libpty/linux/.*")
       case Sdk.Linux =>
-        to("jre/")
+        from("jbrsdk") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -170,7 +170,7 @@ object Main {
           matches("Info\\.plist") |
           matches("lib/libpty/macosx/.*")
       case Sdk.Mac =>
-        any
+        from("jbrsdk") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
     }
@@ -216,7 +216,7 @@ object Main {
             any
         case Idea.Resources =>
           matches("data/config/options/jdk\\.table\\.xml") &
-            edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$\\/jre", "\\$APPLICATION_HOME_DIR\\$/jdk/Contents/Home")) |
+            edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$/jbr", "\\$APPLICATION_HOME_DIR\\$/jdk/Contents/Home")) |
             toResources |
             any
         case _ => any

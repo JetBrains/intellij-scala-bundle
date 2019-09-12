@@ -4,6 +4,7 @@
       <properties>
         <option name="languageLevel" value="Scala_2_12" />
         <compiler-classpath>
+          <root url="file://$APPLICATION_HOME_DIR$/scala/lib/jline-2.14.6.jar" />
           <root url="file://$APPLICATION_HOME_DIR$/scala/lib/scala-compiler.jar" />
           <root url="file://$APPLICATION_HOME_DIR$/scala/lib/scala-library.jar" />
           <root url="file://$APPLICATION_HOME_DIR$/scala/lib/scala-reflect.jar" />
@@ -11,10 +12,7 @@
       </properties>
       <CLASSES>
         <root url="jar://$APPLICATION_HOME_DIR$/scala/lib/scala-library.jar!/" />
-        <root url="jar://$APPLICATION_HOME_DIR$/scala/lib/scala-parser-combinators_2.12-1.0.7.jar!/" />
         <root url="jar://$APPLICATION_HOME_DIR$/scala/lib/scala-reflect.jar!/" />
-        <root url="jar://$APPLICATION_HOME_DIR$/scala/lib/scala-swing_2.12-2.0.3.jar!/" />
-        <root url="jar://$APPLICATION_HOME_DIR$/scala/lib/scala-xml_2.12-1.0.6.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="http://www.scala-lang.org/api/2.12.3/" />

@@ -1,38 +1,82 @@
 <application>
   <component name="ProjectJdkTable">
     <jdk version="2">
-      <name value="1.8" />
+      <name value="1.11" />
       <type value="JavaSDK" />
-      <version value="java version &quot;1.8.0_152-release&quot;" />
-      <homePath value="$APPLICATION_HOME_DIR$/jre" />
+      <version value="java version &quot;11.0.3&quot;" />
+      <homePath value="$APPLICATION_HOME_DIR$/jbr" />
       <roots>
         <annotationsPath>
           <root type="composite">
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/lib/jdkAnnotations.jar!/" />
+            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/plugins/java/lib/jdkAnnotations.jar!/" />
           </root>
         </annotationsPath>
         <classPath>
           <root type="composite">
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/charsets.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/access-bridge-32.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/access-bridge.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/cldrdata.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/dnsns.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/jaccess.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/jfxrt.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/localedata.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/nashorn.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/sunec.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/sunjce_provider.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/sunmscapi.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/sunpkcs11.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/ext/zipfs.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/jce.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/jfxswt.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/jsse.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/management-agent.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/resources.jar!/" />
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/rt.jar!/" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.base" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.compiler" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.datatransfer" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.desktop" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.instrument" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.logging" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.management" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.management.rmi" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.naming" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.net.http" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.prefs" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.rmi" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.scripting" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.se" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.security.jgss" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.security.sasl" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.smartcardio" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.sql" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.sql.rowset" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.transaction.xa" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.xml" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/java.xml.crypto" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.base" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.controls" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.fxml" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.graphics" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.media" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.swing" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/javafx.web" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.accessibility" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.aot" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.attach" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.charsets" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.compiler" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.crypto.cryptoki" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.crypto.ec" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.dynalink" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.httpserver" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.ed" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.jvmstat" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.le" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.vm.ci" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.vm.compiler" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.internal.vm.compiler.management" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.jdi" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.jdwp.agent" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.jfr" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.jsobject" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.localedata" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.management" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.management.agent" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.management.jfr" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.naming.dns" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.naming.rmi" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.net" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.pack" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.scripting.nashorn" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.scripting.nashorn.shell" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.sctp" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.security.auth" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.security.jgss" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.unsupported" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.xml.dom" type="simple" />
+            <root url="jrt://$APPLICATION_HOME_DIR$/jbr!/jdk.zipfs" type="simple" />
           </root>
         </classPath>
         <javadocPath>
@@ -42,7 +86,7 @@
         </javadocPath>
         <sourcePath>
           <root type="composite">
-            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jre/src.zip!/" />
+            <root type="simple" url="jar://$APPLICATION_HOME_DIR$/jbr/lib/src.zip!/" />
           </root>
         </sourcePath>
       </roots>
