@@ -139,7 +139,7 @@ object Main {
       case Idea.Windows =>
         matches("bin/idea64.exe")
       case Sdk.Windows =>
-        from("jbrsdk") & to("jbr/")
+        from("jbrsdk/") & to("jbr/")
       case Scala.Windows =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -152,7 +152,7 @@ object Main {
           matches("bin/.*\\.(py|sh|png)") | matches("bin/fsnotifier") |
           matches("lib/libpty/linux/.*")
       case Sdk.Linux =>
-        from("jbrsdk") & to("jbr/")
+        from("jbrsdk/") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -170,7 +170,7 @@ object Main {
           matches("Info\\.plist") |
           matches("lib/libpty/macosx/.*")
       case Sdk.Mac =>
-        from("jbrsdk") & to("jbr/")
+        from("jbrsdk/") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
     }
