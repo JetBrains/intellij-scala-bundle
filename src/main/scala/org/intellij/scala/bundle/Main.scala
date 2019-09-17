@@ -181,6 +181,8 @@ object Main {
           any
       case Idea.Resources =>
         matches("bundle.txt") & edit(const(BundleTxt.replaceAll("\n", separator))) |
+          matches("data/config/options/applicationLibraries.xml") & edit(appendScalaSdkVersion) |
+          matches("data/projects/hello-scala/hello-scala.iml") & edit(appendScalaSdkVersion) |
           any
       case _ => any
     }
@@ -205,6 +207,9 @@ object Main {
         s"* JetBrains SDK ${Versions.Sdk}\n" +
         s"* Scala ${Versions.Scala}\n\n" +
         s"See https://github.com/JetBrains/intellij-scala-bundle for more info."
+
+    private val appendScalaSdkVersion =
+      (_: String).replaceAll("scala-sdk", "scala-sdk-" + Versions.Scala)
 
     private val MacPatches: Descriptor = {
       val toResources = matches("[^/]+\\.(txt|json|html)") & to("Resources/")
