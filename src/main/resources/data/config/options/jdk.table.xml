@@ -1,7 +1,7 @@
 <application>
   <component name="ProjectJdkTable">
     <jdk version="2">
-      <name value="1.11" />
+      <name value="11" />
       <type value="JavaSDK" />
       <version value="java version &quot;11.0.3&quot;" />
       <homePath value="$APPLICATION_HOME_DIR$/jbr" />
