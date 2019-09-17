@@ -1,1 +1,3 @@
-println("Hello, Scala!")
+"Hello, Scala!"
+
+1 + 2
