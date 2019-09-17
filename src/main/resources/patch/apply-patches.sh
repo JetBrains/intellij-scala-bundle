@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=192.6262.58
+VERSION=192.6603.28
 TARGET=../../../../target
 
 #curl https://raw.githubusercontent.com/JetBrains/intellij-community/idea/$VERSION/platform/platform-impl/src/com/intellij/ui/AppUIUtil.java > AppUIUtil.java.original
