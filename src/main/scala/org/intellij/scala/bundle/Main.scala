@@ -216,7 +216,7 @@ object Main {
             any
         case Idea.Resources =>
           matches("data/config/options/jdk\\.table\\.xml") &
-            edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$/jbr", "\\$APPLICATION_HOME_DIR\\$/jdk/Contents/Home")) |
+            edit(_.replaceAll("\\$APPLICATION_HOME_DIR\\$/jbr", "\\$APPLICATION_HOME_DIR\\$/jbr/Contents/Home")) |
             toResources |
             any
         case _ => any
