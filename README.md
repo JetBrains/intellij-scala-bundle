@@ -37,9 +37,9 @@ Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere
 
 ## Download
 
-* [intellij-scala-bundle-2019-09-17-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-windows.zip)
-* [intellij-scala-bundle-2019-09-17-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-linux.tar.gz)
-* [intellij-scala-bundle-2019-09-17-osx.dmg](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-osx.dmg)
+* [intellij-scala-bundle-2020-03-17-windows.zip](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-windows.zip)
+* [intellij-scala-bundle-2020-03-17-linux.tar.gz](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-linux.tar.gz)
+* [intellij-scala-bundle-2020-03-17-osx.dmg](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-osx.dmg)
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/patch/BundleAgreement.html)).
 
