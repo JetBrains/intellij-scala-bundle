@@ -1,14 +1,14 @@
---- StartupUtil.java
-+++ StartupUtil.java
-@@ -78,6 +78,7 @@
- public class StartupUtil {
-   public static final String FORCE_PLUGIN_UPDATES = "idea.force.plugin.updates";
+--- StartupUtil.java.orig	2020-04-21 13:37:19.913820017 +0200
++++ StartupUtil.java	2020-04-21 13:46:24.136783108 +0200
+@@ -75,6 +75,7 @@
+ 
+ public final class StartupUtil {
    public static final String IDEA_CLASS_BEFORE_APPLICATION_PROPERTY = "idea.class.before.app";
 +  public static final String IDEA_STARTUP_LISTENER_PROPERTY = "idea.startup.listener";
  
    @SuppressWarnings("SpellCheckingInspection") private static final String MAGIC_MAC_PATH = "/AppTranslocation/";
  
-@@ -127,6 +128,31 @@
+@@ -125,6 +126,31 @@
      }
    }
  
@@ -37,33 +37,33 @@
 +    throw new RuntimeException(); // returns Nothing
 +  }
 +
-   private static void runPreAppClass(Logger log) {
+   private static void runPreAppClass(@NotNull Logger log) {
      String classBeforeAppProperty = System.getProperty(IDEA_CLASS_BEFORE_APPLICATION_PROPERTY);
      if (classBeforeAppProperty != null) {
-@@ -143,6 +169,8 @@
+@@ -140,6 +166,8 @@
+   }
  
-   static void prepareAndStart(@NotNull String[] args, @NotNull AppStarter appStarter)
-     throws InvocationTargetException, InterruptedException, ExecutionException {
+   public static void prepareApp(@NotNull String[] args, @NotNull String mainClass) throws Exception {
 +    StartupListener startupListener = createStartupListener();
 +
-     IdeaForkJoinWorkerThreadFactory.setupForkJoinCommonPool(Main.isHeadless(args));
+     LoadingState.setStrictMode();
  
-     // Before lockDirsAndConfigureLogger can be executed only tasks that do not require log,
-@@ -180,6 +208,8 @@
+     Activity activity = StartUpMeasurer.startMainActivity("ForkJoin CommonPool configuration");
+@@ -174,6 +202,8 @@
      // this check must be performed before system directories are locked
-     boolean newConfigFolder = !Main.isHeadless() && !new File(PathManager.getConfigPath()).exists();
+     boolean configImportNeeded = !Main.isHeadless() && !Files.exists(Paths.get(configPath));
  
 +    startupListener.before(StartupPhase.FOLDERS_CHECK);
 +
-     Logger log = lockDirsAndConfigureLogger(args);
+     activity = activity.endAndStart("system dirs checking");
+     // note: uses config directory
+     if (!checkSystemDirs()) {
+@@ -210,6 +240,8 @@
+     Class<AppStarter> aClass = mainStartFuture.get();
+     activity.end();
  
-     boolean isParallelExecution = SystemProperties.getBooleanProperty("idea.prepare.app.start.parallel", true);
-@@ -220,6 +250,8 @@
-         appStarter.importFinished(newConfigDir);
-       }
- 
-+      startupListener.before(StartupPhase.USER_AGREEMENT);
++    startupListener.before(StartupPhase.USER_AGREEMENT);
 +
-       showUserAgreementAndConsentsIfNeeded(log);
+     startApp(args, initUiTask, log, configImportNeeded, aClass.newInstance());
+   }
  
-       if (newConfigFolder && !ConfigImportHelper.isConfigImported()) {
