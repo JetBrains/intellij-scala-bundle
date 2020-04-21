@@ -55,7 +55,7 @@ public class BundleStartupListener implements StartupListener {
               getClass().getResourceAsStream("BundleAgreement.html")), StandardCharsets.UTF_8)) {
 
         String text = new String(FileUtil.adaptiveLoadText(reader));
-        SwingUtilities.invokeAndWait(() -> showEndUserAgreementText("IntelliJ Scala Bundle Agreement", text, false));
+        showEndUserAgreementText("IntelliJ Scala Bundle Agreement", text, false);
 
         File optionsDirectory = bundleAgreement.getParentFile();
 
