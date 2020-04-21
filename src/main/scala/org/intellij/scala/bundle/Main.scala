@@ -7,6 +7,7 @@ import org.intellij.scala.bundle.Descriptor._
 import org.intellij.scala.bundle.Mapper.{matches, _}
 
 import scala.Function._
+import scala.collection.parallel.CollectionConverters._
 import scala.util.matching.Regex
 
 /**
@@ -244,7 +245,7 @@ object Main {
     val Mac: Descriptor = ((Common | MacSpecific) & Repack & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
   }
 
-  private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File) {
+  private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File): Unit = {
     info(s"Building ${output.getName}...")
 
     using(Destination(output)) { destination =>
