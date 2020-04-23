@@ -38,7 +38,7 @@ Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere
 ## Download
 
 |Version|Download|IntelliJ IDEA|Scala Plugin|SDK|Scala|
-|:------|:------:|:------------|:-----------|:--|:----|
+|:-----:|:------:|:------------|:-----------|:--|:----|
 |2020-04-23|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-linux.tar.gz)|201.6668.121|2020.1.27|11.0.6+8-b765.25|2.13.1|
 |2020-03-17|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-linux.tar.gz)|193.6911.18|2019.3.27|11.0.6+8-b520.43|2.13.1|
 |2019-09-17|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-linux.tar.gz)|192.6603.28|2019.2.28|11.0.3+12-b304.56|2.13.0|
