@@ -108,7 +108,7 @@ object Main {
           matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar", 0) { (source, destination) =>
             source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
             using(Source(file("./src/main/resources/patch")))(_.collect(
-              matches("AppUIUtil.class") & to("com/intellij/ui/") |
+              matches("AppUIUtil.*\\.class") & to("com/intellij/ui/") |
               matches("BundleStartupListener.*\\.class") & to("com/intellij/idea/") |
               matches("StartupListener.class") & to("com/intellij/idea/") |
               matches("StartupPhase.class") & to("com/intellij/idea/") |
@@ -117,7 +117,7 @@ object Main {
           } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
-          matches("plugins/(git4idea|github|java|java-ide-customization|junit|IntelliLang|maven|properties|terminal)/.*") |
+          matches("plugins/(git4idea|github|java|java-ide-customization|junit|IntelliLang|maven|properties|repository-search|terminal)/.*") |
           matches("build.txt") |
           matches("product-info.json") |
           matches("LICENSE.txt") |
@@ -199,6 +199,7 @@ object Main {
       "idea.startup.listener=com.intellij.idea.BundleStartupListener\n\n" +
       "idea.config.path=${idea.home.path}/data/config\n\n" +
       "idea.system.path=${idea.home.path}/data/system\n\n" +
+      "idea.log.path=${idea.home.path}/data/system/log\n\n" +
       "idea.plugins.path=${idea.home.path}/data/plugins\n      "
 
     private def BundleTxt =

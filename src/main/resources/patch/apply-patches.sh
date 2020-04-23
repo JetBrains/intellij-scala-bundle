@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=193.6911.18
+VERSION=$(grep -Po '(?<=Idea=).*' ../../../../version.properties)
 TARGET=../../../../target
 
 #curl https://raw.githubusercontent.com/JetBrains/intellij-community/idea/$VERSION/platform/platform-impl/src/com/intellij/ui/AppUIUtil.java > AppUIUtil.java.original
@@ -21,7 +21,6 @@ patch StartupUtil.java StartupUtil.java.patch
 
 javac -g:vars -cp $TARGET/lib/\* -target 1.8 *.java
 
-rm AppUIUtil\$*.class
 rm StartupUtil\$*.class
 
 rm AppUIUtil.java

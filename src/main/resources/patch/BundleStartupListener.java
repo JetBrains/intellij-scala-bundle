@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import static com.intellij.ui.AppUIUtil.showEndUserAgreementText;
+import static com.intellij.ui.AppUIUtil.showAgreementText;
 
 public class BundleStartupListener implements StartupListener {
   @Override
@@ -55,7 +55,7 @@ public class BundleStartupListener implements StartupListener {
               getClass().getResourceAsStream("BundleAgreement.html")), StandardCharsets.UTF_8)) {
 
         String text = new String(FileUtil.adaptiveLoadText(reader));
-        showEndUserAgreementText("IntelliJ Scala Bundle Agreement", text, false);
+        showAgreementText("IntelliJ Scala Bundle Agreement", text);
 
         File optionsDirectory = bundleAgreement.getParentFile();
 
