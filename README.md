@@ -59,7 +59,7 @@ You can use *File | Import Settings* and *File | Export Settings* to transfer th
 
 You can update or install IDEA plugins via *Settings | Plugins*.
 
-The bundle doesn't include Git binaries (though it includes Git and GitHub integration). You may [install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) separately, if needed.
+Although the bundle doesn't include Git binaries, it includes Git and GitHub integrations, so you can [install Git from the IDE](https://blog.jetbrains.com/idea/2020/03/intellij-idea-2020-1-eap7/#install_git_from_the_ide), if needed.
 
 ## Custom Builds
 
