@@ -49,7 +49,8 @@ object Mapper {
   }
 
   def to(path: String): Mapper = {
-    case entry => entry.copy(name = path + entry.name)
+    case entry =>
+      entry.copy(name = path + entry.name)
   }
 
   def edit(editor: String => String): Mapper = {

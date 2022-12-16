@@ -4,7 +4,7 @@ import java.io.File
 import java.net.URL
 
 import org.intellij.scala.bundle.Descriptor._
-import org.intellij.scala.bundle.Mapper.{matches, _}
+import org.intellij.scala.bundle.Mapper.{matches, repack, _}
 
 import scala.Function._
 import scala.collection.parallel.CollectionConverters._
@@ -29,8 +29,8 @@ object Main {
     }
 
     val commands = Seq(
-      () => build(repository, Components.All, Descriptors.Windows)(target / s"$Application-windows.zip"),
-      () => build(repository, Components.All, Descriptors.Linux)(target / s"$Application-linux.tar.gz"),
+      //() => build(repository, Components.All, Descriptors.Windows)(target / s"$Application-windows.zip"),
+      //() => build(repository, Components.All, Descriptors.Linux)(target / s"$Application-linux.tar.gz"),
       () => build(repository, Components.All, Descriptors.Mac)(target / s"$Application-osx.tar.gz"),
     )
 
@@ -70,14 +70,14 @@ object Main {
     }
 
     object Sdk {
-      private val Pattern = new Regex("""(\d+)\.(\d+)\.(\d+)\+\d+-b(\d+)\.(\d+)""")
+      private val Pattern = new Regex("""(\d+)\.(\d+)\.(\d+)[\+]*\d*-b(\d+)\.(\d+)""")
 
-      val Windows = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
-      val Linux = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
-      val Mac = Component(s"https://bintray.com/jetbrains/intellij-jbr/download_file?file_path=jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
+      val Windows = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
+      val Linux = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
+      val Mac = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
 
-      private def format(version: String, os: String) = version match {
-        case Pattern(n1, n2, n3, n4, n5) => s"${n1}_${n2}_$n3-$os-x64-b$n4.$n5"
+      def format(version: String, os: String) = version match {
+        case Pattern(n1, n2, n3, n4, n5) => s"${n1}.${n2}.${n3}-${os}-x64-b${n4}.${n5}"
         case v => throw new IllegalArgumentException("Version " + v + "doesn't match " + Pattern.pattern.pattern())
       }
     }
@@ -91,9 +91,12 @@ object Main {
     val Repository = Component("./")
 
     val All = Seq(
-      Idea.Bundle, Idea.Windows, Idea.ScalaPlugin, Idea.Resources,
-      Sdk.Windows, Sdk.Linux, Sdk.Mac,
-      Scala.Windows, Scala.Unix, Scala.Sources,
+      Idea.Bundle,
+      //Idea.Windows, Sdk.Windows, Scala.Windows,
+      Idea.ScalaPlugin, Idea.Resources,
+      //Sdk.Linux,
+      Sdk.Mac, Scala.Unix,
+      Scala.Sources,
       Repository
     )
   }
@@ -106,13 +109,13 @@ object Main {
         matches("bin/appletviewer\\.policy") |
           matches("bin/log\\.xml") |
           matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar", 0) { (source, destination) =>
-            source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
+            //source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
             using(Source(file("./src/main/resources/patch")))(_.collect(
-              matches("AppUIUtil.*\\.class") & to("com/intellij/ui/") |
+/*              matches("AppUIUtil.*\\.class") & to("com/intellij/ui/") |
               matches("BundleStartupListener.*\\.class") & to("com/intellij/idea/") |
               matches("StartupListener.class") & to("com/intellij/idea/") |
               matches("StartupPhase.class") & to("com/intellij/idea/") |
-              matches("StartupUtil.class") & to("com/intellij/idea/") |
+              matches("StartupUtil.class") & to("com/intellij/idea/") |*/
               matches("BundleAgreement.html") & to("com/intellij/idea/")).foreach(destination(_)))
           } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
@@ -140,7 +143,8 @@ object Main {
       case Idea.Windows =>
         matches("bin/idea64.exe")
       case Sdk.Windows =>
-        from("jbrsdk/") & to("jbr/")
+        val version = Sdk.format(Versions.Sdk, "windows")
+        from(s"jbrsdk-$version") & to("jbr/")
       case Scala.Windows =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -153,7 +157,8 @@ object Main {
           matches("bin/.*\\.(py|sh|png)") | matches("bin/fsnotifier") |
           matches("lib/libpty/linux/.*")
       case Sdk.Linux =>
-        from("jbrsdk/") & to("jbr/")
+        val version = Sdk.format(Versions.Sdk, "linux")
+        from(s"jbrsdk-$version") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
       case Idea.Resources =>
@@ -171,7 +176,8 @@ object Main {
           matches("Info\\.plist") |
           matches("lib/libpty/macosx/.*")
       case Sdk.Mac =>
-        from("jbrsdk/") & to("jbr/")
+        val version = Sdk.format(Versions.Sdk, "osx")
+        from(s"jbrsdk-$version") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
     }
@@ -185,13 +191,6 @@ object Main {
           matches("data/config/options/applicationLibraries.xml") & edit(appendScalaSdkVersion) |
           matches("data/projects/hello-scala/hello-scala.iml") & edit(appendScalaSdkVersion) |
           any
-      case _ => any
-    }
-
-    private def Repack: Descriptor = {
-//      case _ =>
-//        matches(".*\\.(jar|zip)") & repack(any) |
-//          any
       case _ => any
     }
 
@@ -239,11 +238,11 @@ object Main {
           matches("idea.sh")) & setMode(100755) | any
     }
 
-    val Windows: Descriptor = ((Common | WindowsSpecific) & Repack & Patches("\r\n")).andThen(_ & to(s"$Application/"))
+    val Windows: Descriptor = ((Common | WindowsSpecific) & Patches("\r\n")).andThen(_ & to(s"$Application/"))
 
-    val Linux: Descriptor  = ((Common | LinuxSpecific) & Repack & Patches("\n") & Permissions).andThen(_ & to(s"$Application/"))
+    val Linux: Descriptor  = ((Common | LinuxSpecific) & Patches("\n") & Permissions).andThen(_ & to(s"$Application/"))
 
-    val Mac: Descriptor = ((Common | MacSpecific) & Repack & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
+    val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
   }
 
   private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File): Unit = {

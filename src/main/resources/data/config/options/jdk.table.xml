@@ -1,9 +1,9 @@
 <application>
   <component name="ProjectJdkTable">
     <jdk version="2">
-      <name value="11" />
+      <name value="17" />
       <type value="JavaSDK" />
-      <version value="java version &quot;11.0.3&quot;" />
+      <version value="java version &quot;17.0.5&quot;" />
       <homePath value="$APPLICATION_HOME_DIR$/jbr" />
       <roots>
         <annotationsPath>
@@ -81,7 +81,7 @@
         </classPath>
         <javadocPath>
           <root type="composite">
-            <root type="simple" url="http://docs.oracle.com/javase/8/docs/api/" />
+            <root type="simple" url="https://docs.oracle.com/en/java/javase/17/docs/api/" />
           </root>
         </javadocPath>
         <sourcePath>
