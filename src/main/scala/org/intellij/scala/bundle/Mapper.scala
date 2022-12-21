@@ -45,7 +45,6 @@ object Mapper {
 
   def from(path: String): Mapper = {
     case entry if entry.name.startsWith(path) && (entry.isFile || entry.name != path) =>
-      info(s"from ${entry.name} to ${entry.name.stripPrefix(path)} (path: $path)")
       entry.copy(name = entry.name.stripPrefix(path))
   }
 

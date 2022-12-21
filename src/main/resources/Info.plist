@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>ipr</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>idea.icns</string>
+        <key>CFBundleTypeName</key>
+        <string>IntelliJ IDEA Project File</string>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+      </dict>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>java</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>idea.icns</string>        
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+      </dict>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>groovy</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>idea.icns</string>        
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+      </dict>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>kt</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>idea.icns</string>        
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+      </dict>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>kts</string>
+        </array>
+        <key>CFBundleTypeIconFile</key>
+        <string>idea.icns</string>        
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+      </dict>
+      <dict>
+        <key>CFBundleTypeExtensions</key>
+        <array>
+          <string>*</string>
+        </array>
+        <key>CFBundleTypeName</key>
+        <string>All documents</string>
+        <key>CFBundleTypeOSTypes</key>
+        <array>
+          <string>****</string>
+        </array>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>LSTypeIsPackage</key>
+        <false/>
+      </dict>
+    </array>
+    <key>CFBundleExecutable</key>
+    <string>idea</string>
+    <key>CFBundleIconFile</key>
+    <string>idea.icns</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>IntelliJ IDEA</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.jetbrains.intellij.ce</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleGetInfoString</key>
+    <string>IntelliJ IDEA 2022.3, build IC-223.7571.182. Copyright JetBrains s.r.o., (c) 2000-2022</string>
+    <key>CFBundleShortVersionString</key>
+    <string>2022.3</string>
+    <key>CFBundleVersion</key>
+    <string>IC-223.7571.182</string>
+    
+      <key>CFBundleURLTypes</key>
+      <array>
+        <dict>
+          <key>CFBundleTypeRole</key>
+          <string>Editor</string>
+          <key>CFBundleURLName</key>
+          <string>Stacktrace</string>
+          <key>CFBundleURLSchemes</key>
+          <array>
+                      <string>idea</string>
+          </array>
+        </dict>
+      </array>
+    
+
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.developer-tools</string>
+    <key>LSArchitecturePriority</key>
+    <array>
+      <string>arm64</string>
+
+      <string>x86_64</string>
+    </array>
+    <key>LSRequiresNativeExecution</key>
+    <string>YES</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.8</string>
+
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
+
+    <key>JVMOptions</key>
+    <dict>
+      <key>ClassPath</key>
+      <string>$APP_PACKAGE/Contents/lib/util.jar:$APP_PACKAGE/Contents/lib/app.jar:$APP_PACKAGE/Contents/lib/3rd-party-rt.jar:$APP_PACKAGE/Contents/lib/platform-statistics-devkit.jar:$APP_PACKAGE/Contents/lib/jps-model.jar:$APP_PACKAGE/Contents/lib/stats.jar:$APP_PACKAGE/Contents/lib/protobuf.jar:$APP_PACKAGE/Contents/lib/external-system-rt.jar:$APP_PACKAGE/Contents/lib/forms_rt.jar:$APP_PACKAGE/Contents/lib/intellij-test-discovery.jar:$APP_PACKAGE/Contents/lib/annotations.jar:$APP_PACKAGE/Contents/lib/groovy.jar:$APP_PACKAGE/Contents/lib/3rd-party-native.jar:$APP_PACKAGE/Contents/lib/annotations-java5.jar:$APP_PACKAGE/Contents/lib/byte-buddy-agent.jar:$APP_PACKAGE/Contents/lib/error-prone-annotations.jar:$APP_PACKAGE/Contents/lib/externalProcess-rt.jar:$APP_PACKAGE/Contents/lib/idea_rt.jar:$APP_PACKAGE/Contents/lib/intellij-coverage-agent-1.0.682.jar:$APP_PACKAGE/Contents/lib/jsch-agent.jar:$APP_PACKAGE/Contents/lib/jsp-base.jar:$APP_PACKAGE/Contents/lib/junit.jar:$APP_PACKAGE/Contents/lib/junit4.jar:$APP_PACKAGE/Contents/lib/kotlin-script-runtime.jar:$APP_PACKAGE/Contents/lib/platform-duplicates-analysis.jar:$APP_PACKAGE/Contents/lib/platform-objectSerializer-annotations.jar:$APP_PACKAGE/Contents/lib/platform-structuralSearch.jar:$APP_PACKAGE/Contents/lib/rd.jar:$APP_PACKAGE/Contents/lib/tools-testsBootstrap.jar:$APP_PACKAGE/Contents/lib/util_rt.jar:$APP_PACKAGE/Contents/lib/xml-dom-impl.jar:$APP_PACKAGE/Contents/lib/xml-dom.jar:$APP_PACKAGE/Contents/lib/ant/lib/ant.jar</string>
+      <key>JVMVersion</key>
+      <string>1.8*,1.8+</string>
+      <key>MainClass</key>
+      <string>com/intellij/idea/Main</string>
+      <key>Options</key>
+      <array>
+        <string>--add-opens=java.base/java.io=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.lang=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.lang.ref=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.net=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.nio=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.nio.charset=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.text=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.time=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.util=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/jdk.internal.vm=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/sun.nio.fs=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/sun.security.ssl=ALL-UNNAMED</string>
+        <string>--add-opens=java.base/sun.security.util=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/com.apple.eawt.event=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/com.apple.laf=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt.dnd.peer=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt.event=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt.image=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt.peer=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/java.awt.font=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/javax.swing=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/javax.swing.text.html=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.awt.datatransfer=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.awt.image=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.awt=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.font=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.java2d=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.lwawt=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.lwawt.macosx=ALL-UNNAMED</string>
+        <string>--add-opens=java.desktop/sun.swing=ALL-UNNAMED</string>
+        <string>--add-opens=jdk.attach/sun.tools.attach=ALL-UNNAMED</string>
+        <string>--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</string>
+        <string>--add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED</string>
+        <string>--add-opens=jdk.jdi/com.sun.tools.jdi=ALL-UNNAMED</string>
+      </array>
+      <key>Properties</key>
+      <dict>
+        <key>java.system.class.loader</key>
+        <string>com.intellij.util.lang.PathClassLoader</string>
+        <key>idea.vendor.name</key>
+        <string>JetBrains</string>
+        <key>idea.paths.selector</key>
+        <string>IdeaIC2022.3</string>
+        <key>jna.boot.library.path</key>
+        <string>$APP_PACKAGE/Contents/lib/jna/amd64</string>
+        <key>pty4j.preferred.native.folder</key>
+        <string>$APP_PACKAGE/Contents/lib/pty4j</string>
+        <key>jna.nosys</key>
+        <string>true</string>
+        <key>jna.nounpack</key>
+        <string>true</string>
+        <key>idea.platform.prefix</key>
+        <string>Idea</string>
+        <key>splash</key>
+        <string>true</string>
+        <key>idea.executable</key>
+        <string>idea</string>
+        <key>idea.home.path</key>
+        <string>$APP_PACKAGE/Contents</string>
+      </dict>
+    </dict>
+
+    <key>NSCameraUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the device's camera.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the device's microphone.</string>
+    <key>NSLocationUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the user's location information.</string>
+    <key>NSDesktopFolderUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the user's Desktop folder.</string>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the user's Documents folder.</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to the user's Downloads folder.</string>
+    <key>NSNetworkVolumesUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to files on a network volume.</string>
+    <key>NSRemovableVolumesUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to files on a removable volume.</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests access to Bluetooth.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>An application in IntelliJ IDEA requests the ability to send Apple events.</string>
+  </dict>
+</plist>

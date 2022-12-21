@@ -1,0 +1,98 @@
+--- StartupUtil.java
++++ StartupUtil.java
+@@ -76,6 +76,7 @@
+ 
+ public final class StartupUtil {
+   public static final String IDEA_CLASS_BEFORE_APPLICATION_PROPERTY = "idea.class.before.app";
++  public static final String IDEA_STARTUP_LISTENER_PROPERTY = "idea.startup.listener";
+   // See ApplicationImpl.USE_SEPARATE_WRITE_THREAD
+   public static final String USE_SEPARATE_WRITE_THREAD_PROPERTY = "idea.use.separate.write.thread";
+ 
+@@ -142,6 +143,31 @@
+     }
+   }
+ 
++  @NotNull
++  private static StartupListener createStartupListener() {
++    String className = System.getProperty(IDEA_STARTUP_LISTENER_PROPERTY);
++    return className != null ? createStartupListener(className) : phase -> {};
++  }
++
++  @SuppressWarnings("UseOfSystemOutOrSystemErr")
++  private static StartupListener createStartupListener(String className) {
++    try {
++      return (StartupListener)Class.forName(className).newInstance();
++    }
++    catch (ClassNotFoundException e) {
++      System.err.println(IDEA_STARTUP_LISTENER_PROPERTY + " class not found: " + className);
++    }
++    catch (IllegalAccessException e) {
++      System.err.println("Cannot access " + IDEA_STARTUP_LISTENER_PROPERTY + " class: " + className);
++    }
++    catch (InstantiationException e) {
++      System.err.println("Cannot instantiate " + IDEA_STARTUP_LISTENER_PROPERTY + " class: " + className);
++    }
++
++    System.exit(Main.INSTALLATION_CORRUPTED);
++    throw new RuntimeException(); // returns Nothing
++  }
++
+   private static void runPreAppClass(@NotNull Logger log) {
+     String classBeforeAppProperty = System.getProperty(IDEA_CLASS_BEFORE_APPLICATION_PROPERTY);
+     if (classBeforeAppProperty != null) {
+@@ -156,7 +182,9 @@
+     }
+   }
+ 
+-  public static void prepareApp(@NotNull String @NotNull [] args, @NotNull String mainClass) throws Exception {
++  public static void prepareApp(@NotNull String[] args, @NotNull String mainClass) throws Exception {
++    StartupListener startupListener = createStartupListener();
++
+     LoadingState.setStrictMode();
+ 
+     Activity activity = StartUpMeasurer.startMainActivity("ForkJoin CommonPool configuration");
+@@ -195,6 +223,8 @@
+                                  (!Files.exists(configPath) ||
+                                   ConfigImportHelper.needsCustomConfigMigration());
+ 
++    startupListener.before(StartupPhase.FOLDERS_CHECK);
++
+     activity = activity.endAndStart("system dirs checking");
+     // note: uses config directory
+     if (!checkSystemDirs()) {
+@@ -236,14 +266,15 @@
+     Class<AppStarter> aClass = mainStartFuture.get();
+     activity.end();
+ 
+-    startApp(args, initUiTask, log, configImportNeeded, aClass.newInstance(), euaDocument);
++    startApp(args, initUiTask, log, configImportNeeded, aClass.newInstance(), startupListener, euaDocument);
+   }
+ 
+-  private static void startApp(String @NotNull [] args,
++  private static void startApp(String[] args,
+                                @NotNull CompletableFuture<?> initUiTask,
+                                @NotNull Logger log,
+                                boolean configImportNeeded,
+                                @NotNull AppStarter appStarter,
++                               @NotNull StartupListener startupListener,
+                                @Nullable Future<Object> euaDocument) throws Exception {
+     if (!Main.isHeadless()) {
+       Activity activity = StartUpMeasurer.startMainActivity("config importing");
+@@ -255,6 +286,8 @@
+         appStarter.importFinished(newConfigDir);
+       }
+ 
++      runInEdtAndWait(log, () -> startupListener.before(StartupPhase.USER_AGREEMENT), initUiTask);
++
+       if (configImportNeeded && !ConfigImportHelper.isConfigImported()) {
+         // exception handler is already set by ConfigImportHelper; event queue and icons already initialized as part of old config import
+         EventQueue.invokeAndWait(() -> {
+@@ -278,7 +311,7 @@
+   }
+ 
+   @NotNull
+-  private static CompletableFuture<?> scheduleInitUi(@NotNull String @NotNull [] args, @NotNull ExecutorService executor, @Nullable Future<Object> eulaDocument) {
++  private static CompletableFuture<?> scheduleInitUi(@NotNull String[] args, @NotNull ExecutorService executor, @Nullable Future<Object> eulaDocument) {
+     // mainly call sun.util.logging.PlatformLogger.getLogger - it takes enormous time (up to 500 ms)
+     // Before lockDirsAndConfigureLogger can be executed only tasks that do not require log,
+     // because we don't want to complicate logging. It is OK, because lockDirsAndConfigureLogger is not so heavy-weight as UI tasks.

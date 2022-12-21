@@ -21,8 +21,8 @@ object Main {
   private lazy val repository = (target / "repository").tap { _.mkdir() }
 
   private val commands = Seq(
-    //() => build(Descriptors.Windows, target / s"$Application-windows.zip"),
-    //() => build(Descriptors.Linux, target / s"$Application-linux.tar.gz"),
+    () => build(Descriptors.Windows, target / s"$Application-windows.zip"),
+    () => build(Descriptors.Linux, target / s"$Application-linux.tar.gz"),
     () => build(Descriptors.Mac, target / s"$Application-osx.tar.gz")
   )
 
@@ -38,19 +38,6 @@ object Main {
         }
       }
     }
-
-/*  private def copyResources(resources: Seq[File]): Unit =
-    resources.foreach { res =>
-      val destination = repository / res.getName
-      if (!destination.exists) {
-        info(s"Copying ${res.getAbsolutePath} ...")
-        copy(res, destination)
-        if (!destination.exists) {
-          error(s"Error copying ${res.getAbsolutePath}")
-          sys.exit(-1)
-        }
-      }
-    }*/
 
   private def build(descriptor: Descriptor, output: File): Unit = {
     info(s"Building ${output.getName}...")
@@ -127,10 +114,10 @@ object Main {
 
     val All: Seq[Component] = Seq(
       Idea.Bundle,
-      //Idea.Windows, Sdk.Windows, Scala.Windows,
+      Idea.Windows, Sdk.Windows, Scala.Windows,
       Idea.ScalaPlugin,
       Idea.Resources,
-      //Sdk.Linux,
+      Sdk.Linux,
       Sdk.Mac, Scala.Unix,
       Scala.Sources,
       Repository

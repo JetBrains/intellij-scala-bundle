@@ -15,5 +15,6 @@ object Component {
 
   def apply(location: String, name: String): Component = Component(location, Some(name))
 
-  private def nameIn(location: String): String = location.substring(location.lastIndexOf('/').max(location.lastIndexOf('=')) + 1)
+  private def nameIn(location: String): String =
+    location.substring(location.lastIndexOf('/').max(location.lastIndexOf('=')) + 1)
 }
