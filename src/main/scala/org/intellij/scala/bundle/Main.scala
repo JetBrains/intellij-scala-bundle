@@ -2,12 +2,12 @@ package org.intellij.scala.bundle
 
 import java.io.File
 import java.net.URL
-
 import org.intellij.scala.bundle.Descriptor._
 import org.intellij.scala.bundle.Mapper.{matches, repack, _}
 
 import scala.Function._
 import scala.collection.parallel.CollectionConverters._
+import scala.util.chaining.scalaUtilChainingOps
 import scala.util.matching.Regex
 
 /**
@@ -17,32 +17,67 @@ object Main {
   private val Application = s"intellij-scala-bundle-${Versions.Bundle}"
   private val MacHostProperties = new File("mac-host.properties")
 
-  def main(args: Array[String]): Unit = {
-    val target = file("./target")
+  private val target = file("./target")
+  private lazy val repository = (target / "repository").tap { _.mkdir() }
 
-    val repository = target / "repository"
+  private val commands = Seq(
+    //() => build(Descriptors.Windows, target / s"$Application-windows.zip"),
+    //() => build(Descriptors.Linux, target / s"$Application-linux.tar.gz"),
+    () => build(Descriptors.Mac, target / s"$Application-osx.tar.gz")
+  )
 
-    repository.mkdir()
-
-    Components.All.filter(_.downloadable).par.foreach { component =>
-      downloadComponent(repository, component)
+  private def downloadComponents(components: Seq[Component]): Unit =
+    components.filter(_.downloadable).par.foreach { component =>
+      val destination = repository / component.path
+      if (!destination.exists) {
+        info(s"Downloading ${component.path}...")
+        download(new URL(component.location), destination)
+        if (!destination.exists) {
+          error(s"Error downloading ${component.location}")
+          sys.exit(-1)
+        }
+      }
     }
 
-    val commands = Seq(
-      //() => build(repository, Components.All, Descriptors.Windows)(target / s"$Application-windows.zip"),
-      //() => build(repository, Components.All, Descriptors.Linux)(target / s"$Application-linux.tar.gz"),
-      () => build(repository, Components.All, Descriptors.Mac)(target / s"$Application-osx.tar.gz"),
-    )
+/*  private def copyResources(resources: Seq[File]): Unit =
+    resources.foreach { res =>
+      val destination = repository / res.getName
+      if (!destination.exists) {
+        info(s"Copying ${res.getAbsolutePath} ...")
+        copy(res, destination)
+        if (!destination.exists) {
+          error(s"Error copying ${res.getAbsolutePath}")
+          sys.exit(-1)
+        }
+      }
+    }*/
+
+  private def build(descriptor: Descriptor, output: File): Unit = {
+    info(s"Building ${output.getName}...")
+
+    using(Destination(output)) { destination =>
+      Components.All.foreach { component =>
+        descriptor.lift(component).foreach { mapper =>
+          using(Source(repository / component.path)) { source =>
+            source.collect(mapper).foreach(destination(_))
+          }
+        }
+      }
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    downloadComponents(Components.All)
 
     commands.par.foreach(_.apply())
 
     if (MacHostProperties.exists) {
-      println("Creating a signed disk image for OSX...")
+      info("Creating a signed disk image for OSX...")
       MacHost.createSignedDiskImage(Application, Versions.Idea, MacHostProperties)
       (target / s"$Application-osx.tar.gz").delete()
     } else {
-      System.err.println(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
-      System.err.println("See mac-host.properties.example")
+      error(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
+      error("See mac-host.properties.example")
     }
 
     info(s"Done.")
@@ -76,7 +111,7 @@ object Main {
       val Linux = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
       val Mac = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "osx")}.tar.gz")
 
-      def format(version: String, os: String) = version match {
+      def format(version: String, os: String): String = version match {
         case Pattern(n1, n2, n3, n4, n5) => s"${n1}.${n2}.${n3}-${os}-x64-b${n4}.${n5}"
         case v => throw new IllegalArgumentException("Version " + v + "doesn't match " + Pattern.pattern.pattern())
       }
@@ -90,10 +125,11 @@ object Main {
 
     val Repository = Component("./")
 
-    val All = Seq(
+    val All: Seq[Component] = Seq(
       Idea.Bundle,
       //Idea.Windows, Sdk.Windows, Scala.Windows,
-      Idea.ScalaPlugin, Idea.Resources,
+      Idea.ScalaPlugin,
+      Idea.Resources,
       //Sdk.Linux,
       Sdk.Mac, Scala.Unix,
       Scala.Sources,
@@ -180,6 +216,8 @@ object Main {
         from(s"jbrsdk-$version") & to("jbr/")
       case Scala.Unix =>
         from(s"scala-${Versions.Scala}/") & to("scala/")
+      case Idea.Resources =>
+        matches("Info.plist")
     }
 
     private def Patches(separator: String): Descriptor = {
@@ -245,30 +283,7 @@ object Main {
     val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
   }
 
-  private def build(base: File, components: Seq[Component], descriptor: Descriptor)(output: File): Unit = {
-    info(s"Building ${output.getName}...")
 
-    using(Destination(output)) { destination =>
-      components.foreach { component =>
-        descriptor.lift(component).foreach { mapper =>
-          using(Source(base / component.path)) { source =>
-            source.collect(mapper).foreach(destination(_))
-          }
-        }
-      }
-    }
-  }
 
-  private def downloadComponent(base: File, component: Component): Unit = {
-    val destination = base / component.path
 
-    if (!destination.exists) {
-      info(s"Downloading ${component.path}...")
-      download(new URL(component.location), destination)
-      if (!destination.exists) {
-        error(s"Error downloading ${component.location}")
-        sys.exit(-1)
-      }
-    }
-  }
 }

@@ -39,6 +39,21 @@ package object bundle {
     }
   }
 
+  def copy(from: File, to: File): Unit = {
+    try {
+      val input = new BufferedInputStream(new FileInputStream(from))
+      val output = new BufferedOutputStream(new FileOutputStream(to))
+      IOUtils.copy(input, output)
+      output.close()
+      input.close()
+    } catch {
+      case _: Throwable =>
+        if (!to.delete()) {
+          to.deleteOnExit()
+        }
+    }
+  }
+
   def propertiesIn(file: File): Properties = {
     val properties = new Properties()
     val input = new BufferedInputStream(new FileInputStream(file))

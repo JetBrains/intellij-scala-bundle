@@ -80,6 +80,8 @@ object Destination {
     def apply(entry: Entry): Unit = {
       if (entry.isDirectory) return
 
+      info(s"adding ${entry.name} to ${file.getName}")
+
       val tarEntry = entry.link.map { link =>
         val result = new TarArchiveEntry(entry.name, TarConstants.LF_SYMLINK)
         result.setLinkName(link)
