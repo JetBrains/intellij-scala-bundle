@@ -131,15 +131,13 @@ object Main {
       case Idea.Bundle =>
         matches("bin/appletviewer\\.policy") |
           matches("bin/log\\.xml") |
-          matches("lib/platform-impl\\.jar") & repack("lib/platform-impl.jar", 0) { (source, destination) =>
-            //source.collect(-(matches("com/intellij/ui/AppUIUtil.class") | matches("com/intellij/idea/StartupUtil.class"))).foreach(destination(_))
+          matches("lib/app\\.jar") & repack("lib/app.jar", 0) { (source, destination) =>
+            source.collect(-(matches("com/intellij/idea/SplashManager.*\\.class"))).foreach(destination(_))
             using(Source(file("./src/main/resources/patch")))(_.collect(
-/*              matches("AppUIUtil.*\\.class") & to("com/intellij/ui/") |
-              matches("BundleStartupListener.*\\.class") & to("com/intellij/idea/") |
-              matches("StartupListener.class") & to("com/intellij/idea/") |
-              matches("StartupPhase.class") & to("com/intellij/idea/") |
-              matches("StartupUtil.class") & to("com/intellij/idea/") |*/
-              matches("BundleAgreement.html") & to("com/intellij/idea/")).foreach(destination(_)))
+              (matches("Agreement.*\\.class") & to("com/intellij/idea/")) |
+                (matches("SplashManager.*\\.class") & to("com/intellij/idea/"))
+            )
+             .foreach(destination(_)))
           } |
           matches("lib/.*") - matches("lib/libpty.*") - matches("lib/platform-impl.jar") |
           matches("license/.*") |
@@ -269,8 +267,4 @@ object Main {
 
     val Mac: Descriptor = ((Common | MacSpecific) & Patches("\n") & MacPatches & Permissions).andThen(_ & to(s"$Application.app/Contents/"))
   }
-
-
-
-
 }

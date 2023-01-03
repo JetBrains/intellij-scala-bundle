@@ -2,7 +2,7 @@
 /target/
 /project/target/
 mac-host.properties
-/.bsp/
+.bsp/*
 *.class
 *.rej
 *.orig
