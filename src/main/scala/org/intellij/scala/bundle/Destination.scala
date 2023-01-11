@@ -49,9 +49,7 @@ object Destination {
     private val output = new ZipArchiveOutputStream(new BufferedOutputStream(new FileOutputStream(file)))
     output.setLevel(compressionLevel)
 
-    def apply(entry: Entry): Unit = {
-      if (entry.isDirectory) return
-
+    def apply(entry: Entry): Unit = if (!entry.isDirectory) {
       val zipEntry = new ZipArchiveEntry(entry.name)
       zipEntry.setSize(entry.size)
       zipEntry.setLastModifiedTime(FileTime.fromMillis(entry.lastModified))
@@ -61,13 +59,11 @@ object Destination {
       output.closeArchiveEntry()
     }
 
-    override def close(): Unit = {
-      output.close()
-    }
+    override def close(): Unit = output.close()
   }
 
   private class TarDestination(file: File, compress: Boolean, compressionLevel: Int) extends Destination {
-    private val output = {
+    private lazy val output = {
       val parameters = new GzipParameters()
       parameters.setCompressionLevel(compressionLevel)
 
@@ -77,9 +73,7 @@ object Destination {
       stream
     }
 
-    def apply(entry: Entry): Unit = {
-      if (entry.isDirectory) return
-
+    def apply(entry: Entry): Unit = if (!entry.isDirectory) {
       val tarEntry = entry.link.map { link =>
         val result = new TarArchiveEntry(entry.name, TarConstants.LF_SYMLINK)
         result.setLinkName(link)
@@ -96,8 +90,6 @@ object Destination {
       output.closeArchiveEntry()
     }
 
-    override def close(): Unit = {
-      output.close()
-    }
+    override def close(): Unit = output.close()
   }
 }

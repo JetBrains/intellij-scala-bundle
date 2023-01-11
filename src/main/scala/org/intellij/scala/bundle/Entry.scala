@@ -5,7 +5,7 @@ import java.io.InputStream
 /**
   * @author Pavel Fatin
   */
-case class Entry(name: String, size: Long, lastModified: Long, mode: Option[Int], link: Option[String], input: Option[InputStream]) {
+final case class Entry(name: String, size: Long, lastModified: Long, mode: Option[Int], link: Option[String], input: Option[InputStream]) {
   def isFile: Boolean = input.isDefined
 
   def isDirectory: Boolean = !isFile

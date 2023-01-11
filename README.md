@@ -79,6 +79,6 @@ In addition to using the above downloads, you can create your own version of the
 
 It's possible to include more example projects in the bundle.
 
-Distributors of the bundle must display the text of [bundle agreement](src/main/resources/patch/BundleAgreement.html) (or link to that text) on download page.
+Distributors of the bundle must display the text of [bundle agreement](src/main/resources/data/config/options/BundleAgreement.html) (or link to that text) on download page.
 
 Please note that this bundle is not supposed to replace the usual way people download, install, configure and update each of those components. The main goal of the bundle is to provide a bootstrap distribution for educational purposes ([more on intended use cases](https://youtrack.jetbrains.com/issue/SCL-11406)).

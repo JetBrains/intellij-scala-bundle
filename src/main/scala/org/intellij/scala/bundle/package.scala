@@ -33,9 +33,7 @@ package object bundle {
       input.close()
     } catch {
       case _: Throwable =>
-        if (!destination.delete()) {
-          destination.deleteOnExit()
-        }
+        if (!destination.delete()) destination.deleteOnExit()
     }
   }
 

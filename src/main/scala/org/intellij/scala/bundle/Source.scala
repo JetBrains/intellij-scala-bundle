@@ -27,11 +27,16 @@ object Source {
     override def hasNext: Boolean = files.hasNext
 
     override def next(): Entry = {
-      val file = files.next().toFile
-
       def format(path: String) = path.replace('\\', '/')
-
-      Entry(format(file.getPath).stripPrefix(format(root.getPath) + "/"), file.length(), file.lastModified(), None, None, if (file.isDirectory) None else Some(new FileInputStream(file)))
+      val file = files.next().toFile
+      Entry(
+        name = format(file.getPath).stripPrefix(format(root.getPath) + "/"),
+        size = file.length(),
+        lastModified = file.lastModified(),
+        mode = None,
+        link = None,
+        input = if (file.isDirectory) None else Some(new FileInputStream(file))
+      )
     }
 
     def close(): Unit = {}
@@ -45,12 +50,17 @@ object Source {
 
     override def next(): Entry = {
       val zipEntry = entries.nextElement()
-      Entry(zipEntry.getName, zipEntry.getSize, zipEntry.getLastModifiedDate.getTime, None, None, if (zipEntry.isDirectory) None else Some(zip.getInputStream(zipEntry)))
+      Entry(
+        name = zipEntry.getName,
+        size = zipEntry.getSize,
+        lastModified = zipEntry.getLastModifiedDate.getTime,
+        mode = None,
+        link = None,
+        input = if (zipEntry.isDirectory) None else Some(zip.getInputStream(zipEntry))
+      )
     }
 
-    def close(): Unit = {
-      zip.close()
-    }
+    def close(): Unit = zip.close()
   }
 
   private class TarGzSource(file: File) extends Source {

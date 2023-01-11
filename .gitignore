@@ -1,4 +1,8 @@
 /.idea/
 /target/
 /project/target/
-mac-host.properties
+mac.properties
+.bsp/*
+*.class
+*.rej
+*.orig
