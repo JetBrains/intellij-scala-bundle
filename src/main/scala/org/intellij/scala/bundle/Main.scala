@@ -15,7 +15,7 @@ import scala.util.matching.Regex
   */
 object Main {
   private val Application = s"intellij-scala-bundle-${Versions.Bundle}"
-  private val MacHostProperties = new File("mac-host.properties")
+  private val MacProperties = new File("mac.properties")
 
   private val target = file("./target")
   private lazy val repository = (target / "repository").tap { _.mkdir() }
@@ -58,12 +58,12 @@ object Main {
 
     commands.par.foreach(_.apply())
 
-    if (MacHostProperties.exists) {
+    if (MacProperties.exists) {
       info("Creating a signed disk image for OSX...")
-      MacHost.createSignedDiskImage(Application, Versions.Idea, MacHostProperties)
+      MacHost.createDMGLocally(target / s"$Application-osx.tar.gz", MacProperties)
       (target / s"$Application-osx.tar.gz").delete()
     } else {
-      error(s"Warning: $MacHostProperties is not present, won't create a signed disk image for OSX.")
+      error(s"Warning: $MacProperties is not present, won't create a signed disk image for OSX.")
       error("See mac-host.properties.example")
     }
 
