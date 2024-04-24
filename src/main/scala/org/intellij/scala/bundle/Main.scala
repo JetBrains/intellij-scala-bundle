@@ -92,7 +92,7 @@ object Main {
     }
 
     object Sdk {
-      private val Pattern = new Regex("""(\d+)\.(\d+)\.(\d+)[\+]*\d*-b(\d+)\.(\d+)""")
+      private val Pattern = new Regex("""(\d+)\.(\d+)\.(\d+)[\+]*\d*[\-]*b(\d+)\.(\d+)""")
 
       val Windows = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "windows")}.tar.gz")
       val Linux = Component(s"https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-${format(Versions.Sdk, "linux")}.tar.gz")
@@ -105,9 +105,9 @@ object Main {
     }
 
     object Scala {
-      val Windows = Component(s"https://downloads.lightbend.com/scala/${Versions.Scala}/scala-${Versions.Scala}.zip")
-      val Unix = Component(s"https://downloads.lightbend.com/scala/${Versions.Scala}/scala-${Versions.Scala}.tgz")
-      val Sources = Component(s"https://github.com/scala/scala/archive/v${Versions.Scala}.tar.gz")
+      val Windows = Component(s"https://github.com/scala/scala3/releases/download/${Versions.Scala}/scala3-${Versions.Scala}.zip")
+      val Unix = Component(s"https://github.com/scala/scala3/releases/download/${Versions.Scala}/scala3-${Versions.Scala}.tar.gz")
+      val Sources = Component(s"https://github.com/scala/scala3/archive/refs/tags/${Versions.Scala}.tar.gz")
     }
 
     val Repository = Component("./")

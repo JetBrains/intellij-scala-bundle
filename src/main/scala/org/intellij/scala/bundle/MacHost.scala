@@ -39,11 +39,13 @@ object MacHost {
          | --background "src/main/resources/mac/dmg_background.png"
          | --window-size 900 500
          | --app-drop-link 670 310
-         | --icon "intellij-scala-bundle-2023-01-05.app" 250 310
+         | --icon "intellij-scala-bundle-${Versions.Bundle}.app" 250 310
          | --volname "IntelliJ Scala Bundle"
          | ${parentDir.getAbsolutePath}/${appName}.dmg
          | ${appDirPath.toString}
          |""".stripMargin.trim
+
+    println(createDmgCmd)
 
     exec(createDmgCmd)
   }
