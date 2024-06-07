@@ -28,7 +28,7 @@ object Plugin {
   )
 
   val Scala: Plugin = Plugin(
-    s"scala3-$ScalaVersion.zip",
+    s"scala3-$ScalaVersion.tar.gz",
     "Scala",
     s"https://github.com/scala/scala3/releases/download/3.3.3/scala3-$ScalaVersion.tar.gz" // TODO
   )
