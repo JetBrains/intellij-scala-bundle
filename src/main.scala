@@ -22,8 +22,11 @@ def prepare(component: Component): Unit =
     if isUnpacked then
       component.toDelete.foreach(str => FileOperations.delete(component.contentsPath.resolve(str)))
       component.toExec.foreach(str => FileOperations.makeExecutable(component.contentsPath.resolve(str)))
-      addPlugin(Plugin.ScalaPlugin, component.contentsPath.resolve("plugins"))
-      addPlugin(Plugin.Scala, component.contentsPath.resolve("scala"))
+      val contentsPath = component.typ match
+        case ComponentType.Mac => component.contentsPath.resolve("Contents") // TODO: refactor this
+        case _                 => component.contentsPath
+      addPlugin(Plugin.ScalaPlugin, contentsPath.resolve("plugins"))
+      addPlugin(Plugin.Scala, contentsPath.resolve("scala"))
       ZipOperations.pack(component)
     else
       error(s"Unpacking failed: $p")

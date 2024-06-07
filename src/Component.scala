@@ -30,10 +30,10 @@ object Component:
 
   val IdeaLinux: Component = Component(
     Linux,
-    s"ideaIC-$PluginVersion.tar.gz",
+    s"ideaIC-$IdeaVersion.tar.gz",
     "tar.gz",
     "Linux",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.tar.gz",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$IdeaVersion.tar.gz",
     mainSubDir = "idea-IC-241.17011.79",
     toDelete = Seq(
       "plugins/plugin-classpath.txt",
@@ -44,10 +44,10 @@ object Component:
 
   val IdeaWindows: Component = Component(
     Windows,
-    s"ideaIC-$PluginVersion.win.zip",
+    s"ideaIC-$IdeaVersion.win.zip",
     "win.zip",
     "Windows",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.win.zip",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$IdeaVersion.win.zip",
     toDelete = Seq(
       "plugins/plugin-classpath.txt",
       "plugins/Kotlin"
@@ -57,10 +57,10 @@ object Component:
 
   val IdeaMac: Component = Component(
     Mac,
-    s"ideaIC-$PluginVersion.dmg",
+    s"ideaIC-$IdeaVersion.dmg",
     "dmg",
     "Mac",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.dmg",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$IdeaVersion.dmg",
     mainSubDir = "IntelliJ IDEA CE/IntelliJ IDEA CE.app",
     toDelete = Seq(
       "Contents/plugins/plugin-classpath.txt",
