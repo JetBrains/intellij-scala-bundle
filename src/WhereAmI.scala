@@ -18,6 +18,6 @@ object WhereAmI:
       case None    => result.toString
       case Some(n) => result.toString.split('\n').take(n).mkString("\n")
 
-  def error(t: Throwable): Unit = println(s"Error: ${whereAmI(t)}")
-  def error(str: String): Unit = println(s"Error: $str")
+  def error(t: Throwable): Unit              = println(s"Error: ${whereAmI(t)}")
+  def error(str: String): Unit               = println(s"Error: $str")
   def error(str: String, t: Throwable): Unit = println(s"Error: $str: ${whereAmI(t)}")

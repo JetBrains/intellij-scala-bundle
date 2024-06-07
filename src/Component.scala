@@ -1,42 +1,39 @@
 import java.net.URL
 import java.nio.file.{Files, Path, Paths}
+import Properties.*
+import ComponentType.*
 
-import Properties.{CacheDir, Version}
-
-enum ComponentType {
+enum ComponentType:
   case Linux, Windows, Mac
-}
-
-final case class Component(typ: ComponentType,
-                           source: String,
+  
+final case class Component(typ:          ComponentType,
+                           source:       String,
                            bundleSuffix: String,
-                           tmpDirStr: String,
-                           downloadStr: String,
-                           mainSubDir: String = ".",
-                           toDelete: Seq[String] = Seq.empty,
-                           toExec: Seq[String] = Seq.empty
-                          ) {
-  lazy val sourcePath: Path = Paths.get(source)
-  lazy val bundlePath: Path = Paths.get(s"IntelliJ Scala Bundle.$bundleSuffix")
+                           tmpDirStr:    String,
+                           downloadStr:  String,
+                           mainSubDir:   String = ".",
+                           toDelete:     Seq[String] = Seq.empty,
+                           toExec:       Seq[String] = Seq.empty):
+  lazy val sourcePath:   Path = Paths.get(source)
+  lazy val bundlePath:   Path = Paths.get(s"$BundleName.$bundleSuffix")
   lazy val contentsPath: Path = tempDir.resolve(mainSubDir)
-  lazy val downloadUrl: URL = new URL(downloadStr)
-  lazy val tempDir: Path = Paths.get(tmpDirStr)
-}
+  lazy val downloadUrl:  URL  = new URL(downloadStr)
+  lazy val tempDir:      Path = Paths.get(tmpDirStr)
 
-object Component {
-  def get(component: Component): Option[Path] = {
+object Component:
+  def get(component: Component): Option[Path] =
     val p = CacheDir.resolve(component.sourcePath)
-    if Files.exists(p) then Some(p)
+    if Files.exists(p) then 
+      Some(p)
     else
       FileOperations.download(component.downloadUrl, p)
-  }
 
   val IdeaLinux: Component = Component(
-    ComponentType.Linux,
-    s"ideaIC-$Version.tar.gz",
+    Linux,
+    s"ideaIC-$PluginVersion.tar.gz",
     "tar.gz",
     "Linux",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$Version.tar.gz",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.tar.gz",
     mainSubDir = "idea-IC-241.17011.79",
     toDelete = Seq(
       "plugins/plugin-classpath.txt",
@@ -46,11 +43,11 @@ object Component {
   )
 
   val IdeaWindows: Component = Component(
-    ComponentType.Windows,
-    s"ideaIC-$Version.win.zip",
+    Windows,
+    s"ideaIC-$PluginVersion.win.zip",
     "win.zip",
     "Windows",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$Version.win.zip",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.win.zip",
     toDelete = Seq(
       "plugins/plugin-classpath.txt",
       "plugins/Kotlin"
@@ -59,11 +56,11 @@ object Component {
   )
 
   val IdeaMac: Component = Component(
-    ComponentType.Mac,
-    s"ideaIC-$Version.dmg",
+    Mac,
+    s"ideaIC-$PluginVersion.dmg",
     "dmg",
     "Mac",
-    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$Version.dmg",
+    downloadStr = s"https://download-cdn.jetbrains.com/idea/ideaIC-$PluginVersion.dmg",
     mainSubDir = "IntelliJ IDEA CE/IntelliJ IDEA CE.app",
     toDelete = Seq(
       "Contents/plugins/plugin-classpath.txt",
@@ -88,4 +85,3 @@ object Component {
       "Contents/jbr/Contents/Home/bin"
     )
   )
-}

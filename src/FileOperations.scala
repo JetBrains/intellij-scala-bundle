@@ -3,15 +3,15 @@ import sys.process.*
 import WhereAmI.error
 import org.apache.commons.io.FileUtils
 import org.apache.commons.compress.utils.IOUtils
+import org.apache.commons.io.filefilter.TrueFileFilter
 
 import java.io.{BufferedInputStream, BufferedOutputStream, File, FileOutputStream}
 import java.net.URL
 import scala.jdk.FunctionConverters.*
 import scala.jdk.CollectionConverters.*
-import org.apache.commons.io.filefilter.TrueFileFilter
 
-object FileOperations {
-  def delete(path: Path): Unit = {
+object FileOperations:
+  def delete(path: Path): Unit =
     if path.toString == "." || path.toString == ".." then
       error("Don't try to delete the current directory")
     else if Files.exists(path) then
@@ -20,22 +20,20 @@ object FileOperations {
       else FileUtils.delete(path.toFile)
     else
       error(s"File doesn't exist: $path")
-  }
 
-  def makeExecutable(path: Path): Unit = {
+  def makeExecutable(path: Path): Unit =
     def setExec(f: File): Unit = {
       println(s"setting ${f.toPath} executable")
       f.setExecutable(true)
     }
     
-    if Files.isDirectory(path)  then
+    if Files.isDirectory(path) then
       FileUtils
         .iterateFiles(path.toFile, TrueFileFilter.TRUE, TrueFileFilter.TRUE)
         .asScala
         .foreach(setExec)
     else if Files.exists(path) && !Files.isExecutable(path) then
       setExec(path.toFile)
-  }
 
   def download(downloadUrl: URL, destination: Path): Option[Path] =
     println(s"Downloading $downloadUrl to $destination")
@@ -52,6 +50,3 @@ object FileOperations {
         WhereAmI.error(t)
         None
     }
-
-
-}

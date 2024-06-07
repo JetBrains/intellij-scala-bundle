@@ -1,9 +1,11 @@
+
 import java.nio.file.{Files, Path, Paths}
 import sys.process.*
+import ComponentType.*
 import WhereAmI.error
 
-object ZipOperations {
-  def unpack(source: Path, destination: Path): Boolean = {
+object ZipOperations:
+  def unpack(source: Path, destination: Path): Boolean =
     println(s"unpacking $source to $destination")
     if !Files.exists(destination) then
       println(s"creating directory $destination")
@@ -26,55 +28,15 @@ object ZipOperations {
       println(res)
     }
     cmd.isDefined // TODO: check if the command was executed with success
-  }
 
-  def packLinux(component: Component): Boolean = {
-    val source = component.tempDir
-    val destination = component.bundlePath
-    println(s"packing $source to $destination")
-    if !Files.exists(source) then
-      error(s"Source doesn't exist: $source")
-      false
-    else {
-      if Files.exists(destination) then
-        FileOperations.delete(destination)
-      val cmd = s"tar -C '$source' -czvf '$destination' '${component.mainSubDir}' "
-      println(s"cmd: $cmd")
-      val res = cmd.!!
-      println(res)
-      true // TODO: check if the command was executed with success
-    }
-  }
-
-  def packWindows(component: Component): Boolean = {
-    val source = component.tempDir
-    val destination = component.bundlePath
-    println(s"packing $source to $destination")
-    if !Files.exists(source) then
-      error(s"Source doesn't exist: $source")
-      false
-    else {
-      if Files.exists(destination) then
-        FileOperations.delete(destination)
-      val cmd = s"7z a './$destination' './$source/*'"
-      println(s"cmd: $cmd")
-      val res = cmd.!!
-      println(res)
-      true // TODO: check if the command was executed with success
-    }
-  }
-
-  def packMac(component: Component): Boolean = {
-    val source = component.contentsPath
-    val destination = component.bundlePath
-    println(s"packing $source to $destination")
-    if !Files.exists(source) then
-      error(s"Source doesn't exist: $source")
-      false
-    else {
-      if Files.exists(destination) then
-        FileOperations.delete(destination)
-      val cmd =
+  def pack(component: Component): Boolean = component.typ match
+    case Linux =>
+      pack(component, s"tar -C '${component.tempDir}' -czvf '${component.bundlePath}' '${component.mainSubDir}' ")
+    case Windows =>
+      pack(component, s"7z a './${component.bundlePath}' './${component.tempDir}/*'")
+    case Mac =>
+      pack(
+        component,
         s"""
            |create-dmg
            | --no-internet-enable
@@ -83,15 +45,23 @@ object ZipOperations {
            | --app-drop-link 670 310
            | --icon "IntelliJ IDEA CE.app" 250 310
            | --hide-extension "IntelliJ IDEA CE.app"
-           | --volname "IntelliJ Scala Bundle"
+           | --volname "${Properties.BundleName}"
            | --volicon "resources/icon.icns"
-           | '$destination'
-           | '$source'
+           | '${component.bundlePath}'
+           | '${component.contentsPath}'
            |""".stripMargin.trim
+      )
+
+  private def pack(component: Component, cmd: String): Boolean =
+    val source = component.tempDir
+    val destination = component.bundlePath
+    println(s"packing $source to $destination")
+    if !Files.exists(source) then
+      error(s"Source doesn't exist: $source")
+      false
+    else
+      if Files.exists(destination) then FileOperations.delete(destination)
       println(s"cmd: $cmd")
       val res = cmd.!!
       println(res)
       true // TODO: check if the command was executed with success
-    }
-  }
-}
