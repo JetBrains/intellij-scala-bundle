@@ -45,7 +45,7 @@ Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere
 |:-----:|:------:|:------------|:-----------|:--|:----|
 |2020-04-23|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-linux.tar.gz)|201.6668.121|2020.1.27|11.0.6+8-b765.25|2.13.1|
 
-By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/patch/BundleAgreement.html)).
+By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/data/config/options/BundleAgreement.html)).
 
 ## Usage
 
