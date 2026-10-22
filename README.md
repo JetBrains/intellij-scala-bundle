@@ -1,3 +1,6 @@
+[![obsolete JetBrains project](https://jb.gg/badges/obsolete.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JetBrains/intellij-scala)
+
 > **Project retired.**
 >
 > IntelliJ Scala Bundle is a discontinued experimental distribution. This repository is archived and retained for historical reference. No further development or maintenance of the standalone bundle is planned.
@@ -17,9 +20,6 @@
 > - **Source code and contributions:** [Scala plugin repository](https://github.com/JetBrains/intellij-scala) and [contribution guide](https://github.com/JetBrains/intellij-scala/blob/idea263.x/CONTRIBUTING.md).
 > - **News, release announcements, and articles:** [IntelliJ Scala blog](https://blog.jetbrains.com/scala/).
 > - **Social updates:** [Bluesky](https://bsky.app/profile/scala.intellijidea.com) and [X/Twitter](https://x.com/IntelliJScala).
-
-[![obsolete JetBrains project](https://jb.gg/badges/obsolete.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JetBrains/intellij-scala)
 
 # IntelliJ Scala Bundle
 
