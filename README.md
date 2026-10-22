@@ -3,9 +3,21 @@
 
 # IntelliJ Scala Bundle
 
-> **Project retired.** IntelliJ Scala Bundle is a discontinued experimental distribution, retained for historical reference. No further development or maintenance is planned.
+> **Project retired.** IntelliJ Scala Bundle is a discontinued experimental distribution. This repository is archived and retained for historical reference. No further development or maintenance of the standalone bundle is planned.
 >
-> The installers below are historical, unsupported downloads. For current use, follow the [IntelliJ IDEA Scala installation instructions](https://www.jetbrains.com/help/idea/get-started-with-scala.html).
+> The installers below are historical, unsupported downloads.
+>
+> **Scala support in IntelliJ IDEA continues to be actively developed.** For current use, install IntelliJ IDEA with the Scala plugin.
+>
+> Here are the current project resources:
+>
+> - **Getting started:** [Installation instructions](https://www.jetbrains.com/help/idea/get-started-with-scala.html), [IntelliJ IDEA downloads](https://www.jetbrains.com/idea/download/), and [Scala plugin on JetBrains Marketplace](https://plugins.jetbrains.com/plugin/1347-scala).
+> - **Documentation:** [Scala support in IntelliJ IDEA](https://www.jetbrains.com/idea/help/scala.html) and the [Scala plugin overview](https://www.jetbrains.com/scala/).
+> - **Bug reports and feature requests:** Please use the [Scala plugin’s YouTrack project](https://youtrack.jetbrains.com/issues/SCL#newissue) for issues affecting current versions of the plugin.
+> - **Questions and discussions:** You’re welcome to join us on [Discord](https://discord.gg/aUKpZzeHCK).
+> - **Source code and contributions:** [Scala plugin repository](https://github.com/JetBrains/intellij-scala) and [contribution guide](https://github.com/JetBrains/intellij-scala/blob/idea263.x/CONTRIBUTING.md).
+> - **News, release announcements, and articles:** [IntelliJ Scala blog](https://blog.jetbrains.com/scala/).
+> - **Social updates:** [Bluesky](https://bsky.app/profile/scala.intellijidea.com) and [X/Twitter](https://x.com/IntelliJScala).
 
 A bundle that includes:
 
