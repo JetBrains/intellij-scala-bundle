@@ -1,7 +1,11 @@
-[![official JetBrains project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![obsolete JetBrains project](https://jb.gg/badges/obsolete.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JetBrains/intellij-scala)
 
 # IntelliJ Scala Bundle
+
+> **Project retired.** IntelliJ Scala Bundle is a discontinued experimental distribution, retained for historical reference. No further development or maintenance is planned.
+>
+> The installers below are historical, unsupported downloads. For current use, follow the [IntelliJ IDEA Scala installation instructions](https://www.jetbrains.com/help/idea/get-started-with-scala.html).
 
 A bundle that includes:
 
@@ -40,12 +44,6 @@ Presentation of the IntelliJ Scala Bundle: [Enabling the first step (ScalaSphere
 |Version|Download|IntelliJ IDEA|Scala Plugin|SDK|Scala|
 |:-----:|:------:|:------------|:-----------|:--|:----|
 |2020-04-23|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-04-23/intellij-scala-bundle-2020-04-23-linux.tar.gz)|201.6668.121|2020.1.27|11.0.6+8-b765.25|2.13.1|
-|2020-03-17|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2020-03-17/intellij-scala-bundle-2020-03-17-linux.tar.gz)|193.6911.18|2019.3.27|11.0.6+8-b520.43|2.13.1|
-|2019-09-17|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-09-17/intellij-scala-bundle-2019-09-17-linux.tar.gz)|192.6603.28|2019.2.28|11.0.3+12-b304.56|2.13.0|
-|2019-05-02|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-05-02/intellij-scala-bundle-2019-05-02-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-05-02/intellij-scala-bundle-2019-05-02-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2019-05-02/intellij-scala-bundle-2019-05-02-linux.tar.gz)|191.6707.61|2019.1.7|1.8.0_202-release-1483-b37|2.12.8|
-|2018-11-30|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-osx.dmg), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-11-30/intellij-scala-bundle-2018-11-30-linux.tar.gz)|183.4284.148|2018.3.4|8u152b1343.15|2.12.7|
-|2018-09-14|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-osx.tar.gz), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-09-14/intellij-scala-bundle-2018-09-14-linux.tar.gz)|182.4323.46|2018.2.11|8u152b1248.8|2.12.6|
-|2018-05-04|[Windows](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-windows.zip), [Mac](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-osx.tar.gz), [Linux](https://github.com/JetBrains/intellij-scala-bundle/releases/download/v2018-05-04/intellij-scala-bundle-2018-05-04-linux.tar.gz)|181.4668.68|2018.1.9|8u152b1136.29|2.12.6|
 
 By proceeding with use of the bundle, you understand that the parts of the bundle are governed by their separate license agreements, and do not form a single product ([more info](src/main/resources/patch/BundleAgreement.html)).
 
